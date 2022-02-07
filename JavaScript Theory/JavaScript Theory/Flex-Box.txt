@@ -1,0 +1,23 @@
+Main axis
+Cross axis
+
+Parent
+------
+display: flex, inline-flex (When we give display:flex, the outer box height is resized to the inner box height...If we dont want this to happen we need to specify the outer box height manually)
+justify-content: flex-start, flex-end,  center,  space-around, space-between, space evenly  [main-axis]
+align-items:  stretch (this is default), baseline, same....(flex-start, flex-end,  center,  space-around, space-between, space evenly  [cross-axis])   => (Default stretch dosent work when the flex-direction is column)
+flex-direction: column, column-reverse, row, row-reverse
+flex-wrap: nowrap, wrap, wrapreverse
+align-content: flex-start, flex-end,  center,  space-around, space-between, space evenly  [cross-axis] => (used when wrapping only)
+flex-flow: column wrap  => (combination of flex-direction and flex-wrap)
+
+
+
+Child
+-----
+order: 1,2,3,4...
+flex-grow: 1  => (occupies the empty space...if given for more childs, the space is evenly distributed and occupied), (if flex-grow:2 it will take twice the space compared to child set to flex-grow:1, NOTE:if the is a specific with set to the child then the display may vary as it starts adding space to its default width)
+flex-basis: 200px  => (represents the width of child...same as width property (i.e) can override the width property)
+flex-shrink: 1,2,..  => (shrinks the given number times faster when the screen size is decreased), (If flex-shrink:0 the the child block wont shrink)
+flex: 1 0 auto;  => (combination of flex-grow, flex-shrink, flex-basis)
+align-self: stretch (this is default), baseline, flex-start, flex-end,  center,  space-around, space-between, space evenly [cross-axis] => (overrides the align-item property defined in the parent)

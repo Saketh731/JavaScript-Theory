@@ -1,0 +1,39 @@
+HTTP headers tells about the type of information that is passed between client and server.
+It is the data about the data hence called as meta data.
+
+Ex: Browser is windows english and the server is in chinese
+
+
+Request Headers
+---------------
+
+Accept : plain/text , image/jpg
+Accept-Charset : UTF-8 
+Accept-Encoding: gzip, deflate, br 
+Accept-Language: en-us
+Authorization: Asks you to enter username and password and converts it into Authorization header
+Cache-Control: different cdn's proxies being used, it tells the cdn's whether to cache the content or not  (both request/response)
+Connection: whether to keep the connection alive (TCP connection), when the transaction is completed dont close the connection
+Cookie: Stores the session information   [set-cookie header from response(session ID)]
+Content-Length: length of content in bytes
+Content-Type: tells the MIME type of body of request
+Date: tells the current data and time 
+Host: host multiple websites on single ip address,  it is the name of the server to which the client is communicated to
+
+If-Modified-Since: if modified in certain period of time the object is send as a response to the client with 200 code status,  if not modified(304 status is send to say it is not modified)
+If-Unmodified-Since: if not modified since specified time then only it is sent
+If-Match: if the object requested matches at the server side then sends response with 300 code,  if not send object with response 200 code
+If-None-Match:
+
+Pragma:
+Range: it is possible get a part of object. (i.e) breaks the file into say 8 different parts and start stars download in 8 parallel connections.   Ex: You are able to watch youtube videos from between.
+User-Agent: it tells the server what client software (browser) is being used, its version, operating system. Ex: firefox, Chrome
+Via: it informs servers that it came through proxies, not directly.
+X-Forwarded For: adds clients ip addresses to proxies> Ex: Us server proxie get india's ip address
+
+
+
+Response-Headers
+----------------
+
+Access-Control-Allow-Origin: Which websites or domains can participate in cross origin resource sharing (CORS)

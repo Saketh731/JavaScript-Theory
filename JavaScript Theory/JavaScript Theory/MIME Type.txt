@@ -1,0 +1,81 @@
+A media type (also known as a Multipurpose Internet Mail Extensions or MIME type)
+It indicates the nature and format of a document, file
+***Important: Browsers use the MIME type, not the file extension, to determine how to process a URL, 
+              so it's important that web servers send the correct MIME type in the response's Content-Type header.
+
+Syntax: type/subtype
+
+Ex: For the MIME type text, the subtype might be plain (plain text), html (HTML source code), or calendar
+
+
+Types
+=====
+1.discrete    -  represent a single file or medium, such as a single text or music file or a single video.
+2.multipart   -   represents a document that's comprised of multiple component parts, multiple files
+
+
+1.discrete
+ ---------
+application
+audio
+example
+font
+image
+model
+text        //text/plain, text/csv, and text/html.
+video
+
+
+
+
+2.multipart
+ ----------
+message
+multipart
+
+
+
+
+MIME sniffing
+=============
+In the absence of a MIME type, or in certain cases where browsers believe they are incorrect, 
+browsers may perform MIME sniffing — guessing the correct MIME type by looking at the bytes of the resource.
+
+
+
+
+
+application/graphql
+application/javascript
+application/json
+application/ld+json
+application/msword (.doc)
+application/pdf
+application/sql
+application/vnd.api+json
+application/vnd.ms-excel (.xls)
+application/vnd.ms-powerpoint (.ppt)
+application/vnd.oasis.opendocument.text (.odt)
+application/vnd.openxmlformats-officedocument.presentationml.presentation (.pptx)
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet (.xlsx)
+application/vnd.openxmlformats-officedocument.wordprocessingml.document (.docx)
+application/x-www-form-urlencoded
+application/xml
+application/zip
+application/zstd (.zst)
+audio/mpeg
+audio/ogg
+image/gif
+image/apng
+image/flif
+image/webp
+image/x-mng
+image/jpeg
+image/png
+multipart/form-data
+text/css
+text/csv
+text/html
+text/php
+text/plain
+text/xml

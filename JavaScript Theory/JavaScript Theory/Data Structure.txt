@@ -1,0 +1,38 @@
+Data structure is a container that stores data in a specific layout. This “layout” allows a data structure to be efficient in some operations and inefficient in others.
+Data structures are used to store data in an organized form.
+
+BST ( O(log n) )
+--- ------------
+A binary search algorithm works on the idea of neglecting half of the list on every iteration
+
+Ex: 1000000 elements in an array. If we want to get the last element Time Complexity - O(N) = 1000000 operation
+    In BST time Complexity is O(log n) - O(log 1000000) = 13.8 operations
+
+Ex: Dom tree structure, inheritance in javascript architecture, (if you want some relation between each elements)
+    Like when someone wants to insert an element into the tree, they must satisfy certain criteria ..then only they are inserted. 
+    By this we can restrict some third part inserting random data into it messing up the whole data
+
+
+Linked - List ( O(n) , O(1) )
+-----------------------------
+Resizable at runtime Dynamically
+
+Stack
+-----
+Ex: Undo operations, Git, Android Versions
+
+
+Queue
+-----
+Ex: Flight Ticket booking, call back functions, Waiting threads stored in a queue
+
+
+Linked-List
+-----------
+File System
+
+Singly linked list is preferred when we need to save memory and searching is not required as pointer of single index is stored.
+
+
+Double-Linked List
+------------------

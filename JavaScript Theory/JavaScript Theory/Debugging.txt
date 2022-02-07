@@ -1,0 +1,15 @@
+Line-of-code	
+Conditional line-of-code	
+DOM	
+XHR	
+Event listener	
+Exception
+Function  - debug(functionName)
+
+
+
+Coverage - unused javascript and css files
+block 
+
+disable javascript/ enable javascript
+

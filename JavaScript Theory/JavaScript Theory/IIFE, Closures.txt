@@ -1,0 +1,80 @@
+IIFE
+----
+It is used in libraries. [(i.e) while creating library]
+
+Closures
+--------
+Global variables can be made local (private) with closures.
+
+The inner function preserves the (outer scope) variable inside it as a property using Closure.
+So even after you return the inner function the (outer scope) variable is still preserved inside it as Closure.
+So that you can use it for further calculations.
+
+A closure is the combination of a function and the lexical environment within which that function was declared.
+That is the inner function maintains a reference to the lexical environment.
+
+*****NOTE: A closure is a function having access to the parent scope, even after the parent function has closed.
+(or)
+
+NOTE: Closures are nothing but functions with preserved data (of outer scope)
+
+
+Ex:
+var counter = 0;
+
+
+function add() {
+  counter += 1;
+}
+
+add();
+add();
+add();
+
+//counter = 3
+
+There is a problem with the solution above: Any code on the page can change the counter, without calling add().
+So the counter should be local to add().
+
+
+Ex:
+var counter = 0;
+
+
+function add() {
+  var counter = 0;
+  counter += 1;
+}
+
+add();
+add();
+add();
+
+//counter = 0     => as it accesses the global counter
+
+So remove the global counter and return the counter inside the function
+
+Ex:
+
+function add() {
+  var counter = 0;
+  counter += 1;
+  return counter;
+}
+
+add();
+add();
+add();   
+
+//counter = 1;
+
+It did not work because we reset the local counter every time we call the function.
+
+***A JavaScript inner function can solve this:
+
+function add() {
+  var counter = 0;
+  function plus() {counter += 1;}
+  plus();  
+  return counter; 
+}

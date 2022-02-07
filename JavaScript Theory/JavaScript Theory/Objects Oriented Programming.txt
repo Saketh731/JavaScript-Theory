@@ -1,0 +1,206 @@
+There are no classes in JavaScript we have only Object.
+**To be more precise, JavaScript is a prototype based object oriented language, which means it doesn’t have classes 
+rather it define behaviors using constructor function and then reuse it using the prototype.**
+JavaScript classes are primarily syntactical sugar over JavaScript’s existing prototype-based inheritance.
+
+Using ES6 classes
+=================
+
+// Defining class using es6 
+class Vehicle { 
+  constructor(name, maker, engine) { 
+    this.name = name; 
+    this.maker =  maker; 
+    this.engine = engine; 
+  } 
+  getDetails(){ 
+      return (`The name of the bike is ${this.name}.`) 
+  } 
+} 
+// Making object with the help of the constructor 
+let bike1 = new Vehicle('Hayabusa', 'Suzuki', '1340cc'); 
+let bike2 = new Vehicle('Ninja', 'Kawasaki', '998cc'); 
+  
+console.log(bike1.name);    // Hayabusa 
+console.log(bike2.maker);   // Kawasaki 
+console.log(bike1.getDetails()); 
+
+
+Traditional Way (ES5)
+=====================
+
+// Defining class in a Traditional Way. 
+function Vehicle(name,maker,engine){ 
+    this.name = name, 
+    this.maker = maker, 
+    this.engine = engine 
+}; 
+  
+Vehicle.prototype.getDetails = function(){ 
+    console.log('The name of the bike is '+ this.name); 
+} 
+  
+let bike1 = new Vehicle('Hayabusa','Suzuki','1340cc'); 
+let bike2 = new Vehicle('Ninja','Kawasaki','998cc'); 
+  
+console.log(bike1.name); 
+console.log(bike2.maker); 
+console.log(bike1.getDetails()); 
+
+
+Encapsulation
+=============
+The process of wrapping property and function within a single unit or capsule is known as encapsulation.
+
+Ex:
+
+//encapsulation example 
+class person{ 
+    constructor(name,id){ 
+        this.name = name; 
+        this.id = id; 
+    } 
+    add_Address(add){ 
+        this.add = add; 
+    } 
+    getDetails(){ 
+        console.log(`Name is ${this.name},Address is: ${this.add}`); 
+    } 
+} 
+  
+let person1 = new person('Mukul',21);   //we can simply create the object using constructor and Initialize its properties
+person1.add_Address('Delhi'); 
+person1.getDetails();
+
+
+NOTE: The main advantage of Encapsulation is security. (i.e) it refers to hiding of data or data Abstraction. Which means hiding background details and showing only what is needed.
+      But it dosent have any access modifiers like in other oop languages. But we achieve this using scope variables in javascript.
+
+Ex:
+		function person(fname,lname){ 
+		var firstname = fname; 
+		var lastname = lname; 
+		this.fullname = firstname + " " + lastname;
+  
+		var noaccess = function(){ 
+			return (`First name is: ${firstname} Last  
+				name is: ${lastname}`); 
+			} 
+  
+		this.access = function(){ 
+			return (`First name is: ${firstname}, Last  
+				name is: ${lastname}`); 
+			} 
+		} 
+		
+		let person1 = new person('Mukul','Latiyan'); 
+		console.log(person1.firstname); 
+		console.log(person1.noaccess); 
+		console.log(person1.fullname); 
+		console.log(person1.access());   
+
+
+Inheritance
+===========
+Unlike most of the OOP languages where classes inherit classes, in JavaScript Object inherits Object
+It is a concept in which some property and methods of an Object is being used by another Object 
+
+NOTE: In javascript classes can have only 1 constructer
+      Child class constructor should always call parent class constructor at the first line itself
+
+Ex:
+
+		class person{ 
+		    gender = "male";
+			constructor(name){ 
+				this.name = name; 
+			}  
+
+			toString(){ 
+				return (`Name of person: ${this.name}`); 
+			} 
+		} 
+		class student extends person{ 
+			constructor(name,id){ 
+			super(name); 
+			this.id = id; 
+		} 
+			toString(){ 
+				return (`${super.toString()}, ${this.gender}, Student ID: ${this.id}`); 
+			} 
+		} 
+		
+		let student1 = new student('Saketh',22); 
+		console.log(student1.toString()); 
+
+
+
+Constructor Functions
+=====================
+First Defining a person with a normal function:
+-----------------------------------------------
+Ex:
+function createNewPerson(name) {
+  const obj = {};
+  obj.name = name;
+  obj.greeting = function() {
+    alert('Hi! I\'m ' + obj.name + '.');
+  };
+  return obj;
+}
+
+const salva = createNewPerson('Salva');
+salva.name; //Salva
+salva.greeting();
+
+
+Now, Defining a person with constructor function:
+-------------------------------------------------
+Ex-1:
+----
+function Person(name) {
+  this.name = name;
+  this.greeting = function() {
+    alert('Hi! I\'m ' + this.name + '.');
+  };
+}
+let person1 = new Person('Bob');
+person1.name //Bob
+person1.greeting()
+
+
+NOTE: The constructor function is JavaScript's version of a class
+      A constructor function name usually starts with a capital letter , so that we can easily recognize it in the code
+
+****NOTE: When we are calling our constructor function, we are defining greeting() every time, which isn't ideal.
+          To avoid this, we can define functions on the prototype instead ****
+
+Ex-2:
+----
+function Person(first, last, age, gender, interests) {
+  this.name = {
+     first : first,
+     last : last
+  };
+  this.age = age;
+  this.gender = gender;
+  this.interests = interests;
+  this.bio = function() {
+    alert(this.name.first + ' ' + this.name.last + ' is ' + this.age + ' years old. He likes ' + this.interests[0] + ' and ' + this.interests[1] + '.');
+  };
+  this.greeting = function() {
+    alert('Hi! I\'m ' + this.name.first + '.');
+  };
+}
+
+person1 = new Person('Bob', 'Smith', 32, 'male', ['music', 'skiing']);
+
+person1['age']
+person1.interests[1]
+person1.bio()
+
+
+
+
+
+

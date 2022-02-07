@@ -1,0 +1,149 @@
+HTML events are "things" that happen to HTML elements.
+When JavaScript is used in HTML pages, JavaScript can "react" on these events.
+
+An HTML event can be something the browser does, or something a user does.
+
+Ex:
+An HTML web page has finished loading
+An HTML input field was changed
+An HTML button was clicked
+
+You want to do something when event occurs
+So HTML allows event handler attributes, with JavaScript code, to be added to HTML elements.
+
+Ex:
+<button onclick="document.getElementById('demo').innerHTML=Date()">The time is?</button>
+<p id="demo"></p>
+
+(or)
+
+<button onclick="this.innerHTML=Date()">The time is?</button>
+
+(or)
+
+<button onclick="displayDate()">The time is?</button>
+
+<script>
+function displayDate() {
+  document.getElementById("demo").innerHTML = Date();
+}
+</script>
+<p id="demo"></p>
+
+***NOTE: Here the event target need not only be a html element (like <p> in above example)  It can be an HTML element in the document (like our example above),
+        it can be the document itself (i.e. a web page loaded in the browser), or even window;
+
+Event handlers (in JavaScript) can be used to handle user actions, verify user input and handle browser actions etc..:
+Ex:
+Things that should be done every time a page loads
+Action that should be performed when a user clicks a button
+Content that should be verified when a user inputs a data or changes current data
+
+
+
+
+
+Event Listeners
+===============
+addEventListener()
+------------------	
+
+To add an event listener (from JavaScript code) on an HTML element you use the addEventListener() method.
+
+Syntax:
+element.addEventListener('click', ()=>{}, useCapture);        => useCapture is boolean i.e only true, false
+
+Ex:
+const character = document.getElementById("disney-character");      => event target
+character.addEventListener('click', showCharactersName);	    => event listener
+
+So when user clicks the event targer the event listener is executed by calling the showCharactersName function.
+
+***NOTE: Event listeners are set on page load.( As when you first open a website, the browser downloads, reads, and executes the JavaScript)
+         In the above code, on page load, the event listener finds HTML element with id - disney-character and sets the click event listener to it.
+
+***This works fine if that HTML element exits on the page when the page is loaded. What if that HTML element is added on the page after some time after page is loaded???
+   TO overcome this problem we use Event Delegations
+
+
+Event Bubblibg
+==============
+Goes up the DOM
+(i.e from the element clicked to all its parents)
+
+Syntax: 
+element.addEventListener('click', ()=>{});   (or)   element.addEventListener('click', ()=>{}, false);
+
+When we perform an event (say click event) on an element it goes up all the way to top of the DOM,
+i.e  it triggers the event (click) on all of its parent elements 
+
+
+e.stopPropagation() to stop the event Propogation
+
+e.preventDefault() ton prevent the default events. Like clicking a button being redirected to a page
+
+
+Event Trickling (or) Event Capturing
+===============	     ===============
+Goes Down the DOM
+(i.e from parents to that the element clicked)
+
+Syntax:
+element.addEventListener('click', ()=>{}, true); 
+
+
+*****NOTE*******
+----------------
+The Browser first performs Event Trickling (Down) and then perform Event Bubbling (Up) in a cycle.
+We can control them using useCapture (by setting to true, false) and e.stopPropagation
+
+
+********** (i.e)  if in the event trickling cycle (halfcycle) all call-back functions will be executed whose useCapture is set to true
+		  and in event bubbling cycle (halfcycle) all call-back functions will be executed whose useCapture is set to false
+
+
+
+
+Event Delegations
+=================
+
+In Event Delegation we add event listener to the parent element. So that it gets triggered when any of the child element is clicked.(When added later after page loading is done)
+
+This works because of Event Bubbling or Event Propogation
+
+(NOTE: Event Propogation means following either Event Bubbling or Event Trickling)
+
+So we cab just have 1 Event listener at parent instead of having event listeners for each child which creates performance issues.
+
+Advantages
+----------
+1. Saves Memory
+2. Writing less code
+3. DOM Manipulation  (if childs are getting added dynamically then we cant add event listeners if its not present when page is loaded...Event Delegation helps here)
+
+Disadvantages
+-------------
+1. Some events are not bubbled up (Ex: blur, focus, resizing of window, scrolling etc..), so we need to handle them without using delegation
+2. stopPropogation - if we are using stop propogation, event is not bubbled up to the parent as it gets stopped in between
+
+
+
+
+
+EVENTS
+======
+
+Clipboard events    Ex:copy/cut/paste
+Composition events  Ex:compositionend/compositionstart
+Focus events        EX:blur/focus/focusin/focusout
+Fullscreen events   Ex:fullscreenchange/fullscreenerror
+Keyboard events     Ex:keydown/keypress/keyup
+Mouse events        Ex:click/dblclick/mousedown/mousemove/mouseup
+Touch events        Ex:touchend/touchmove/touchstart/touchcancel
+
+
+
+ 
+
+
+

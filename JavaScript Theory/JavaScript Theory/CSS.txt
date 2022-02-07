@@ -1,0 +1,425 @@
+Browser Default Style
+External CSS - by using a <link> element to link to an external CSS file   //<link rel="stylesheet" href="styles.css">
+	-With an external style sheet, you can change the look of an entire website by changing just one file!
+
+Internal CSS -  by using a <style> element in the <head> section
+	-An internal style sheet may be used if one single HTML page has a unique style.
+        -NOTE: Less specificity over inline css, but specificity with external depends on which one is declared after which one. Recently declared one has high specificity
+
+Inline CSS -  by using the style attribute inside HTML elements
+	-An inline style may be used to apply a unique style for a single element.
+	-NOTE- Has high specificity
+
+<link rel="stylesheet" href="mystyle.css">
+
+
+CSS Selectors
+=============
+Simple Selectors
+----------------
+id, class, element itself
+* (universal selector)
+h1, h2, p {} (Grouping Selector) 
+
+NOTE: .class1.class2	.name1.name2	Selects all elements with both name1 and name2 set within its class attribute
+
+Combinators
+-----------
+A combinator is something that explains the relationship between the selectors
+
+space   (all specified nested elements)
+>       (all specified child elements)
++	(immediate next sibbling)
+~	(All next sibblings)
+
+Pseudo-classes selector
+-----------------------
+Using Pseudo-classes we can style an element only when it is in a certain state
+
+a:link, a:visited, a:hover, a:active
+
+Also
+p {
+  display: none;
+  background-color: yellow;
+  padding: 20px;
+}
+
+div:hover p {
+  display: block;
+}
+
+Selector		Example
+--------		-------
+:active			a:active		
+:checked		input:checked	
+:disabled		input:disabled	
+:empty			p:empty	
+:enabled		input:enabled	
+:first-child		p:first-child	
+:first-of-type		p:first-of-type	
+:focus			input:focus	
+:hover			a:hover	
+:in-range		input:in-range	
+:invalid		input:invalid	
+:lang(language)		p:lang(it)	
+:last-child		p:last-child	
+:last-of-type		p:last-of-type	
+:link			a:link	
+:not(selector)		:not(p)	
+:nth-child(n)		p:nth-child(2)	
+:nth-last-child(n)	p:nth-last-child(2)	
+:nth-last-of-type(n)	p:nth-last-of-type(2)	
+:nth-of-type(n)		p:nth-of-type(2)	
+:only-of-type		p:only-of-type	
+:only-child		p:only-child	
+:optional		input:optional
+:out-of-range		input:out-of-range	
+:read-only		input:read-only
+:read-write		input:read-write	
+:required		input:required
+:root			root	
+:target			#news:target
+:valid			input:valid	
+:visited		a:visited
+
+Pseudo-Elements selector
+------------------------
+A CSS pseudo-element is used to style specified parts of an element
+
+p::first-line
+p::first-letter
+h1::before
+h1::after 
+::selection
+
+
+Ex:
+h1::before {
+  content: url(smiley.gif);
+}
+
+NOTE: The ::first-line, ::first-letter pseudo-element can only be applied to block-level elements.
+
+Attribute Selectors
+-------------------
+It is possible to style HTML elements that have specific attributes or attribute values
+
+a[target]			- select elements with a specified attribute
+a[target="_blank"]		- select elements with a specified attribute and value
+[attribute~="value"]		- (Space Seperated) selects all elements with a title attribute that contains a space-separated list of words, one of which is "flower"
+[attribute|="value"]		- (Starting) select elements with the specified attribute starting with the specified value Ex:<p class="top-text">
+[attribute^="value"]		- (Begins)select elements whose attribute value begins with a specified value Ex: <p class="topcontent">
+[attribute$="value"]		- (Ends)select elements whose attribute value ends with a specified value Ex: <p class="mytest">  [here value is "text"]
+[attribute*="value"]		- (Contains) select elements whose attribute value contains a specified value Ex: <p class="mytest"> [here value is "te"]
+
+***NOTE: Can be used in styling Forms  Ex: input[type="text"]   (or) input[type="button"]
+
+
+
+
+Colors
+======
+color name
+rbg(red,green,blue)  				 0-255
+hex - #rrggbb         				 0-f	 
+hsl - hsl(hue, saturation, lightness)		 0-360, 0-100%, 0-100%       (0 or 360 represents red, 120 represents green and 240 represents blue), 0% represents shade of gray and 100% represents full color,  0% represents black, 50% represents normal, and 100% represents white.
+
+alpha: This parameter is used to defines the opacity and the value lies between 0.0 (fully transparent) and 1.0 (fully opaque).
+
+
+CSS Background
+==============
+background-color
+background-image
+background-repeat
+background-attachment
+background-position
+Background Shorthand - Ex:  background: #ffffff url("img_tree.png") no-repeat right top;
+
+
+Border
+======
+border-style: dotted   (or)  border-style: dotted solid double groove
+border-width
+border-color
+border-radius
+Shorthand Border: Ex: border: 5px solid red; 		border-width
+		   					border-style (required)
+		   					border-color
+
+
+
+Margin
+======
+margin-top : 20px
+margin-right: inherit
+margin-bottom
+margin-left
+
+margin: 20px 30px 10px 200px
+
+
+Padding
+=======
+padding-top
+padding-right
+padding-bottom
+padding-left
+padding: 25px 50px 75px 100px;
+
+NOTE: box-sizing: border-box;
+
+
+Height/Width
+============
+Note: Remember that the height and width properties do not include padding, borders, or margins!
+      They set the height/width of the area inside the padding, border, and margin of the element!
+
+height: 100%;   //intial, auto, inherit
+width: 500px;
+
+
+Box Model
+=========
+Inside border  - padding
+Outside border - margin
+
+***Important: When you set the width and height properties of an element with CSS, you just set the width and height of the content area. 
+              To calculate the full size of an element, you must also add padding, borders and margins.
+
+Ex:     320px (width)
+	+ 20px (left + right padding)
+	+ 10px (left + right border)
+	+ 0px (left + right margin)
+	= 350px
+
+
+Outline
+=======
+outline-style
+outline-color
+outline-width
+outline-offset
+outline:
+
+Note: Outline differs from borders! Unlike border, the outline is drawn outside the element's border, and may overlap other content. 
+      Also, the outline is NOT a part of the element's dimensions; the element's total width and height is not affected by the width of the outline.
+
+
+
+Text
+====
+color: blue;
+text-align: center;   //left, right, justify
+direction: rtl;
+unicode-bidi: bidi-override;
+text-decoration: none;   //overline, line-through, underline
+text-transform: uppercase;   //lowercase, capitalize
+text-indent: 50px;
+letter-spacing: 3px;
+line-height: 0.8;
+word-spacing: 10px;
+text-shadow: 2px 2px red;
+
+
+Font
+====
+NOTE: If you use pixels, you can still use the zoom tool to resize the entire page.
+ 	
+font-family: "Times New Roman", Times, serif;
+font-style: normal;  //italic, oblique
+font-weight: normal;  //bold
+font-size: 40px;
+shorthand font -   font: 20px Arial, sans-serif;    font-style
+						    font-variant
+						    font-weight
+						    font-size/line-height
+						    font-family
+
+
+
+List
+====
+list-style-type: square;
+list-style-image: url('sqpurple.gif'); 
+
+NOTE: text-decoration: none   //removes default styling for anchor tags
+
+Tables
+======
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+#customers tr:hover {background-color: #ddd;}
+
+
+
+
+****Display****
+    =======
+The display property specifies if/how an element is displayed.
+Every HTML element has a default display either block or inline
+
+Block-level Elements
+--------------------
+A block-level element always starts on a new line and takes up the full width available (stretches out to the left and right as far as it can).
+Ex:
+<div>
+<h1> - <h6>
+<p>
+<form>
+<header>
+<footer>
+<section>
+
+
+Inline Elements
+---------------
+An inline element does not start on a new line and only takes up as much width as necessary.
+<span>
+<a>
+<img>
+
+
+display: block;
+display: inline;
+display: inline-block;
+display: none;         //does not show space
+visibility: hidden;   //shows space
+
+
+****NOTE: Setting the width of a block-level element will prevent it from stretching out to the edges of its container.
+	  width : 100px;   //but here if browser window is small we need to scroll right
+	  max-width:100px  //no need to scroll to right, it adjusts as per browser.  Recommended
+
+
+
+The position Property
+=====================
+static
+relative
+fixed
+absolute
+sticky
+
+
+
+Overflow
+--------
+The CSS overflow property controls what happens to content that is too big to fit into an area.
+The overflow property specifies whether to clip the content or to add scrollbars when the content of an element is too big to fit in the specified area.
+
+The overflow property has the following values:
+visible - Default. The overflow is not clipped. The content renders outside the element's box
+hidden - The overflow is clipped, and the rest of the content will be invisible
+scroll - The overflow is clipped, and a scrollbar is added to see the rest of the content
+auto - Similar to scroll, but it adds scrollbars only when necessary
+
+overflow-x and overflow-y
+-------------------------
+The overflow-x and overflow-y properties specifies whether to change the overflow of content just horizontally or vertically (or both)
+
+
+
+
+float and clear Property
+========================
+The float property is used for positioning and formatting content e.g. let an image float left to the text in a container.
+
+The float property can have one of the following values:
+left - The element floats to the left of its container
+right - The element floats to the right of its container
+none - The element does not float (will be displayed just where it occurs in the text). This is default
+inherit - The element inherits the float value of its parent
+
+Ex:
+img {
+  float: right;
+}
+
+
+The clear property specifies what elements can float beside the cleared element and on which side.
+
+The clear property can have one of the following values:
+none - Allows floating elements on both sides. This is default
+left - No floating elements allowed on the left side
+right- No floating elements allowed on the right side
+both - No floating elements allowed on either the left or the right side
+inherit - The element inherits the clear value of its parent
+
+Ex:
+div {
+  clear: left;
+}
+
+
+
+
+
+***CSS Units***
+===============
+CSS has several different units for expressing a length.
+Many CSS properties take "length" values, such as width, margin, padding, font-size, etc.
+
+There are two types of length units: absolute and relative.
+
+Absolute Lengths
+----------------
+The absolute length units are fixed and a length expressed in any of these will appear as exactly that size.
+Absolute length units are not recommended for use on screen, because screen sizes vary so much.
+
+Unit	Description
+cm	centimeters
+mm	millimeters
+in	inches (1in = 96px = 2.54cm)
+px *	pixels (1px = 1/96th of 1in)
+pt	points (1pt = 1/72 of 1in)
+pc	picas (1pc = 12 pt)
+
+
+Relative Lengths
+----------------
+Relative length units specify a length relative to another length property
+
+Unit	Description	
+em	Relative to the font-size of the element (2em means 2 times the size of the current font)    //<div>The font-size of the div element is set to 30px. <span>The span element inside the div element has a font-size of 0.5em, which equals to 0.5x30 = 15px</span>.</div>
+ex	Relative to the x-height of the current font (rarely used)	
+ch	Relative to width of the "0" (zero)	
+rem	Relative to font-size of the root element	
+vw	Relative to 1% of the width of the viewport*	
+vh	Relative to 1% of the height of the viewport*	
+vmin	Relative to 1% of viewport's* smaller dimension	
+vmax	Relative to 1% of viewport's* larger dimension	
+%	Relative to the parent element
+
+
+
+Media Queries
+-------------
+A media query consists of a media type and can contain one or more expressions, which resolve to either true or false.
+
+Syntax:
+@media not|only mediatype and (expressions) {
+  CSS-Code;
+}
+
+NOTE: Unless you use the not or only operators, the media type is optional and the all type will be implied
+
+******You can also have different stylesheets for different media:
+<link rel="stylesheet" media="mediatype and|not|only (expressions)" href="print.css">
+
+
+Media Types
+-----------
+Value	Description
+all	Used for all media type devices
+print	Used for printers
+screen	Used for computer screens, tablets, smart-phones etc.
+speech	Used for screenreaders that "reads" the page out loud
+
+
+Ex:
+@media screen and (min-width: 480px) {
+  #leftsidebar {width: 200px; float: left;}
+  #main {margin-left: 216px;}
+}
+

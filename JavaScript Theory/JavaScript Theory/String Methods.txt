@@ -1,0 +1,29 @@
+Property
+--------
+str.length
+
+
+Methods
+-------
+
+**NOTE: At start of every line you must have str = , as strings are immutable
+
+
+str.indexOf("locate")
+str.indexOf("locate", 15)
+str.lastIndexOf("locate")
+str.lastIndexOf("locate", 15)
+str.search("locate")  //true or false
+str.slice(7)
+str.slice(7, 13)
+str.slice(-12)
+str.substring(7, 13)    //difference between slice and substring is substring cannot accept negative indexes
+str.substr(7, 6)        //substr() is similar to slice().... difference is that the second parameter specifies the length of the extracted part
+str.replace("Microsoft", "W3Schools")
+text1.toUpperCase()
+text1.toLowerCase()
+text1.concat(" ", text2)
+str.trim()
+str.charAt(0)
+str.charCodeAt(0)
+***txt.split(",");   //returns an array

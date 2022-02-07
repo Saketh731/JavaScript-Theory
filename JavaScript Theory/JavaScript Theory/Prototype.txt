@@ -1,0 +1,130 @@
+In reality, the only true difference between prototype and __proto__ is that the prototype is a property of a constructor, 
+while the __proto__ is a property of a instance. 
+
+
+__proto__ is property (reference) pointing to the objects's protoype . **prototype property points to the original constructor function.** 
+**prototype is the blueprint/structure that needs to be followed.**
+So what all properties/methods there in prototype, the same properties/methods are shown under __proto__
+
+
+prototype property (represents an object)  defines all the properties and methods that are to be inherited.
+Ex: Object.is(), Object.create() etc.. are not available in prototype chain as they are not defined in Object.prototype. Ex: Object.prototype.value(), Object.prototype.hasOwnProperty()
+
+Prototype property (whose value is an object) represents the object's methods and properties, and in order to access them in prototype chain we need __proto__ property of instance
+that points to the object's prototype property. 
+ 
+
+__proto__: Object
+=================
+
+newPhone.__proto__ is actually a JavaScript object, and JavaScript objects are also built according to a specific “blueprint”. 
+So newPhone.__proto__.__proto__ refers to Object.prototype, which is the prototype or blueprint that all JavaScript objects are based on. 
+
+Ex:
+a=[1,2,3];
+a.__proto__    		   (same as) 	    Array.prototype
+a.__proto__.__proto__	   (same as)	    Object.prototype
+a.__proto__.__proto__.__proto__   is null
+
+
+**Recently added to get prototype of object  ==>   Object.getPrototypeOf(obj)
+
+
+
+Object.create()
+===============
+
+Ex:
+function Person(first, last, age, gender, interests) { 
+  // property and method definitions
+  this.name = {
+    'first': first,
+    'last' : last
+  };
+  this.age = age;
+  this.gender = gender;
+}
+let person1 = new Person('Bob', 'Smith', 32, 'male', ['music', 'skiing']);
+ 
+
+let person2 = Object.create(person1);
+
+Here, person2 is being created using person1 as its prototype object.
+(i.e) the person2.__proto__ points to the person1 (which dosent act like prototype [i.e] the properties and methods are not stored in constructor's prototype 
+						   so that the  person2.__proto__ can point to. But instead it directly points to person1 object)
+
+You can check person2.__proto__  => it returns  person1 object.
+
+
+
+The constructor prototype
+=========================
+Properties defined on the Person.prototype property become available to all the instance objects created using the Person() constructor.
+As their __proto__ points to (or derived from) prototype property of constructor property.
+
+
+***NOTE: let person3 = new person1.constructor('Karen', 'Stephenson', 26, 'female', ['playing drums', 'mountain climbing']);
+					(same as)
+	 let person3 = new Person('Karen', 'Stephenson', 26, 'female', ['playing drums', 'mountain climbing']);
+         
+ 	 This is useful if you dont have reference to the original constructor
+
+
+
+Modifying prototypes
+====================
+
+Person.prototype.farewell = function() {
+  alert(this.name.first + ' has left the building. Bye for now!');
+};
+person1.farewell();
+
+This method is available on all object instances created from the constructor.
+
+
+***NOTE:  delete operator removes the respective properties from all other class instances too.
+ 	  Ex: delete person1.__proto__.farewell or delete Person.prototype.farewell removes farewell() method from all Person instances.
+	  *****In order to mitigate this issue, you could use Object.defineProperty() instead.******
+
+
+
+*****TRY This
+     ========
+Object.setPrototypeOf(
+  proto, foo.prototype
+);
+
+
+
+
+******MYConclusions******
+      =============
+How would you inherit properties and methods from Person object in student object ?
+As in Java classes and objects are different and we can extend classes for inheritance.
+
+But in JavaScript there are only objects and no classses.
+So to inherit here we need to have a property (prototype) [whose value is object] with all the methods and properties to be inherited 
+and pass that prototype property (prototype) to the child object. (we store that protoype in __proto__ property which is inside a prototype again)
+To make those methods and properties to be not visible in the instance of that object, we need to create the prototype property inside [__proto__] property.
+
+Ex:
+
+function Person(){
+name: "Saketh";
+age: 22;
+[__proto__] : prototype{
+	   details: function{ this.name+" "+this.age;}
+	   [__proto__]: Object.prototype;
+	}
+} 
+
+function Student(){
+id: 160030708;
+dept: "CSE";
+[__proto__] : prototype{
+	    //[__proto__]: Object.prototype   //gets overided with Person.prototype after using reassigning it using Object.create()
+	    [__proto__]: Person.prototype;  //we will get access to only details function but not name, age properties. To get those we need to use Person.call(this);
+	}
+}
+
+Student.prototype = Object.create(Person.prototype);

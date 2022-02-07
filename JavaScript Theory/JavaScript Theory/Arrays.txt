@@ -1,0 +1,191 @@
+Arrays are special type of objects: [Best suitable only for searching and reading operation]
+Arrays use numbers to access its "elements"   Ex: var cars = ["Saab", 12, "BMW"];          // cars[0]
+Objects use names to access its "members"     Ex: var person = {firstName:"John", age:46}; // person["firstName"];
+
+Creating an Array
+=================
+1. Using Array Literal,   Ex: var cars = ["Saab", 12, "BMW"];            (Recommended)
+2. Using new Keyword,     Ex: var cars = new Array("Saab", 12, "BMW");
+3. Using Array.of()	  Ex: var cars = Array.of("Saab", 12, "BMW");
+
+Note: var cars = new Array(20);  //constructor => so gives 20 undefined values as output.
+
+You can access array elements by its index. (i.e) here the index acts as the name of the element,  Ex: cars[0] = "Opel";
+You can access full array by refering array name.  Ex: document.getElementById("demo").innerHTML = cars;  //Saab,Volvo,BMW
+NOTE: You can't access array elements by name.
+      **You can have objects, functions, arrays in an Array.**
+JavaScript Arrays have built-in array properties and methods unlike in java. **This is because the underlying datastructure of arrays is ArrayList.
+
+Looping Array Elements
+======================
+1. Using a for loop:   			for (i = 0; i < cars.length; i++) {
+		       	    			text += "<li>" + cars[i] + "</li>";
+		     		        }	
+
+2. Using Array.forEach() function:      text = "<ul>";
+					cars.forEach(myFunction);
+  (Note: Array.forEach() 		text += "</ul>";
+   calls a function for 		document.getElementById("demo").innerHTML = text;
+   each array element)
+					function myFunction(val) {
+					  text += "<li>" + val + "</li>";
+					} 	
+
+Adding Array Elements
+=====================
+1. Using push() method:   Ex: cars.push("Hyundai");      (Recommended)
+2. cars[cars.length] = "Hyundai";
+
+Note: cars[6] = "Hyundai"";   => can give undefined outputs for few indexes
+
+
+How to Recognize an Array
+=========================
+typeof cars;   //returns object => so dosen't work
+
+1. Array.isArray():   			Ex: Array.isArray(cars);     // returns true
+2. instanceof:       		        Ex: cars instanceof Array;   // returns true
+3. Your own isArray() function:         Ex: function isArray(x) {
+ 						 return x.constructor.toString().indexOf("Array") > -1;
+				            }          // returns true
+
+----------------------------------------------------------------------------------------------------------------
+Array Methods
+=============
+1. toString() - converts an array to a string
+2. join()     - acts same like toString(), but here you can specify the seperator
+                Ex: cars.join("*"); // Saab*Volvo*BMW
+3. pop()      - removes the last element from an array      			Ex: cars.pop();
+4. push()     - adds new element to an array (at the end)   			Ex: cars.push("Hyundai");
+5. shift()    - pops first elements and shift array to left 		        Ex: var x = cars.shift();  // x ==> Saab (and) //cars=> Volvo,BMW       
+6. unshift    - adds new element to beginning and shifts remaining to right     // returns array length Ex: var x = cars.unshift("Skoda");
+7. splice(x,y, value1, value2,..)- x => specifies where new elements to be added 
+				   y => specifies how many elements should be removed
+				   Ex: var fruits = ["Banana", "Orange", "Apple", "Mango"];
+				       fruits.splice(2, 0, "Lemon", "Kiwi");  // Banana,Orange,Lemon,Kiwi,Apple,Mango
+8. concat()   - creates new array by merging two arrays.  Ex: var arr3 = arr1.concat(arr2);  (also) var arr4 = arr1.concat(arr2, arr3)  and so on....
+9. slice()    - slices a part of an array to a new array. **Returns a new array**
+		Ex: var fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+		    var citrus = fruits.slice(3);    //Apple,Mango
+		    var frts2 = fruits.slice(1,3);   //Orange, Lemon
+
+Deleting an array element
+=========================
+
+1. delete     -  delete cars[1];
+2. splice()   -  cars.splice(0,1); // removes first element,    cars.splice(0,2); //removes first 2 elements
+
+	
+Array sort()
+============
+
+1. sort()    - By default this is for only strings. Sorts alphabetically.
+	       Ex:  var fruits = ["Banana", "Orange", "Apple", "Mango"];
+		    fruits.sort(); // Apple,Banana,Mango,Orange
+2. reverse() - fruits.reverse();
+
+Numeric Sort
+------------
+var points = [40, 100, 1, 5, 25, 10];
+points.sort(function(a, b){return a - b});
+
+NOTE: This is called compare function .(function(a, b){return a - b}). The purpose of this compare function is to provide customized sorting technique.
+----  This compare function should always return either (0 or -ve number or +ve number). if -ve, then a is sorted before b
+
+
+Sorting in random order
+-----------------------
+var points = [40, 100, 1, 5, 25, 10];
+points.sort(function(a, b){return 0.5 - Math.random()});
+
+Finding maximum and minimum in array numeric
+--------------------------------------------
+1.Max:
+------
+function myArrayMax(arr) {
+  return Math.max.apply(null, arr);
+}
+2.Min
+-----
+function myArrayMax(arr) {
+  return Math.min.apply(null, arr);
+}
+
+
+Array Iteration Methods
+=======================
+
+Summary:
+-------
+indexOf(),lastIndex() - return number (i.e index)
+find(func), findIndex(func) - returns first value/ first index that passes the test      				parameters - value, index, arr
+forEach(func) - returns nothing, just performs actions based on the value, index, arr    				parameters - value, index, arr
+map(func) - returns a new array, by performing a function on each element        					parameters - value, index, arr
+filter(func) - returns a new array, by filtering the existing array based on a given condition				parameters - value, index, arr
+reduce(func, 100), reduceRight(func, 100) - returns a number/value, by performing the calculation 			parameters - total, value, index, arr
+every(func), some(func) - return true/false, by checking every array element [some(func) stops if found the match]	parameters - value, index, arr
+  
+
+
+a. indexOf()        -  var fruits = ["Apple", "Orange", "Apple", "Mango"];
+		       var a = fruits.indexOf("Apple"); //0   (or) fruits.indexOf(1,"Apple");
+b. lastIndexOf()   
+c. find()           -  finds and returns the first array element that passes the test
+		       Ex: var numbers = [4, 9, 16, 25, 29];
+			   var first = numbers.find(myFunction); //25
+
+			   function myFunction(value, index, array) {
+				  return value > 18;
+			   }
+d.findIndex()       -  finds and returns the first array element index that passes the test
+
+
+1.Array.forEach()   -  forEach() method calls a function (a callback function) once for each array element. Takes 3 arguments => value, index, array itself
+2.Array.map()       -  creates new array by performing a function on each array element
+		       Ex: var numbers1 = [45, 4, 9, 16, 25];
+			   var numbers2 = numbers1.map(myFunction);
+
+			   function myFunction(value, index, array) {
+ 				 return value * 2;
+			   }
+3.Array.filter()   -  creates a new array with array elements that passes a test
+		      Ex: var numbers = [45, 4, 9, 16, 25];
+			  var over18 = numbers.filter(myFunction);
+
+			  function myFunction(value, index, array) {
+				  return value > 18;
+			  }
+4.Array.reduce()   -  var sum = numbers1.reduce(myFunction, 100); // var sum = numbers1.reduce(myFunction);
+		      function myFunction(total, value, index, array) {
+ 			 return total + value;
+		      }
+5.Array.reduceRight() - from right to left
+6.Array.every()    -  returns true or false by checking every array element
+		      Ex: function myFunction(value, index, array) {
+  				return value > 18;
+			  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const test{
+p:42,f:function(){
+let p:25;
+return this.prop;
+},
+};
+console.log(test.funtion());
+

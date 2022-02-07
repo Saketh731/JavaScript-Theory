@@ -1,0 +1,130 @@
+Inline styles -		Ex: <h1 style="color: #ffffff;">.
+
+IDs -		Ex: #navbar
+
+Classes, attributes and pseudo-classes -  		Ex: .classes, [attributes] and pseudo-classes such as :hover, :focus etc.
+
+Elements and pseudo-elements - 			Ex: h1, div, :before and :after.
+
+
+****Calculate Specificity
+    =====================
+Start at 0, add 1000 for style attribute, add 100 for each ID, add 10 for each attribute, class or pseudo-class,
+add 1 for each element name or pseudo-element.
+
+Example:
+-------	
+A: h1
+B: #content h1
+C: <div id="content"><h1 style="color: #ffffff">Heading</h1></div>
+
+Answer:
+------
+Specificity of A = 0001 (one element)
+Specificity of B = 0101 (one ID reference and one element)
+Specificity of C = 1000 (inline styling)
+
+Since 0001 < 0101 < 1000, the third rule (C) has a greater level of specificity, and therefore will be applied.
+
+
+
+Specificity Rules
+=================
+
+1.Equal specificity:  the latest rule counts
+  -----------------
+Ex:
+h1 {background-color: yellow;}
+h1 {background-color: red;}    //This one is applied
+
+
+
+2.ID selectors have a higher specificity than attribute selectors 
+  ---------------------------------------------------------------
+Ex:
+div#a {background-color: green;}    //more specific
+#a {background-color: yellow;}
+div[id=a] {background-color: blue;}
+
+
+3.A class selector beats any number of element selectors 
+  ------------------------------------------------------
+Ex: a class selector such as .intro beats h1, p, div, etc:
+
+
+4.The universal selector and inherited values have a specificity of 0 
+  -------------------------------------------------------------------
+ Ex: *, body * and similar have a zero specificity. Inherited values also have a specificity of 0.
+
+
+*****5. Directly targeted elements vs. inherited styles
+        -----------------------------------------------
+Styles for a directly targeted element will always take precedence over inherited styles, regardless of the specificity of the inherited rule. 
+
+
+*****6. The :is(), :not(), :where() exceptions
+        --------------------------------------
+Adds no specificity by itself, only what’s inside it’s parentheses added to specificity value.
+
+
+Example:
+-------
+#parent {
+  color: green;
+}
+
+h1 {
+  color: purple;     //gets high priority
+}
+
+<html>
+  <body id="parent">
+    <h1>Here is a title!</h1>
+  </body>
+</html>
+
+
+***NOTE
+   ----
+*[id="foo"] counts as an attribute selector for the purpose of determining the selector's specificity, even though it selects an ID.
+Ex:
+*#foo {
+  color: green;     // high specificity
+}
+
+*[id="foo"] {
+  color: purple;
+}
+
+
+
+The !important exception
+========================
+When an important rule is used on a style declaration, this declaration overrides any other declarations
+NOTE: When two elements are using !importent, then the one with higher specificity will be applied
+Ex: 
+elem{
+ color: firebrick !important;
+}
+**NOTE:
+-------
+Always look for a way to use specificity before even considering !important
+Only use !important on page-specific CSS that overrides foreign CSS (from external libraries, like Bootstrap or normalize.css).
+
+
+
+
+***Sample calculations***
+=========================
+
+1. ul#nav li.active a  			=  0,1,1,3
+
+2. body.ie7 .col_3 h2 ~ h2      	=  0,0,2,3
+
+3. #footer *:not(nav) li		=  0,1,0,2 
+
+4. <li style="color:red;">		=  1,0,0,0
+
+5. ul > li ul li ol li::first-letter	=  0,0,0,7
+
+

@@ -1,0 +1,34 @@
+Instance properties
+-------------------
+Object.prototype.constructor
+Object.prototype.__proto__
+Object.prototype.__noSuchMethod__
+
+
+
+Static methods
+--------------
+Object.assign()
+Object.create()
+Object.defineProperty()
+Object.defineProperties()
+Object.getOwnPropertyDescriptor()
+Object.getOwnPropertyDescriptors()
+Object.entries()
+Object.keys()
+Object.values()
+Object.getOwnPropertyNames()
+Object.getOwnPropertySymbols()
+Object.getPrototypeOf()
+Object.setPrototypeOf()
+
+
+
+Instance properties
+-------------------
+Object.prototype.hasOwnProperty()
+Object.prototype.isPrototypeOf()
+Object.prototype.propertyIsEnumerable()
+Object.prototype.toLocaleString()	
+Object.prototype.toString()
+Object.prototype.valueOf()

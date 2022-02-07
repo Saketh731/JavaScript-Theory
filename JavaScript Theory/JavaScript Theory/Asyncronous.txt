@@ -1,0 +1,51 @@
+JavaScript is by default syncronous. That is single threaded, so performs only one task at a time.
+You can test the syncronous behavious using alert.
+
+
+****NOTE***
+===========
+Web workers allow you to send some of the JavaScript processing off to a separate thread, called a worker
+												  ========
+You can run expensive processes off the main thread so that user interaction is not blocked.
+One limitation of worker thread is they are not able to access the DOM
+
+
+Asyncronous behaviour can be achieved in two ways:
+--------------------------------------------------
+
+1. Using async callbacks
+2. Using setTimeouts, promises, fetch,.. 
+
+
+1. Using async callbacks
+------------------------
+Ex:
+btn.addEventListener('click', () => {
+  alert('You clicked me!');
+
+  let pElem = document.createElement('p');
+  pElem.textContent = 'This is a newly-added paragraph.';
+  document.body.appendChild(pElem);
+});
+
+Note: Callback function waits for the user to perform click event and then called back (callback function is called) to execute
+
+
+2.Using Promises
+----------------
+
+Ex:
+fetch('products.json').then(function(response) {
+  return response.json();
+}).then(function(json) {
+  products = json;
+  initialize();
+}).catch(function(err) {
+  console.log('Fetch problem: ' + err.message);
+});
+
+
+
+
+*****NOTE: Async operations like promises are put into an event queue, which runs after the main thread has finished processing so that they do not block subsequent JavaScript code from running.
+           The queued operations will complete as soon as possible then return their results to the JavaScript environment.

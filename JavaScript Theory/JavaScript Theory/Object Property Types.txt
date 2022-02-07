@@ -1,0 +1,191 @@
+Object's Properties and their attributes
+========================================
+
+JavaScript specifies characteristics of object properties using internal attributes
+
+There are two types of object properties:
+
+1.Data properties
+2.Accessor properties
+
+
+
+1. Data properties
+==================
+
+It contains a single location for a data value.
+Data property has four attributes:
+
+a. [[Configurarable]]     -    tells  whether a property can be redefined or removed via delete operator.
+b. [[Enumerable]] 	  -    indicates whether a property will be returned in the for...in loop.
+c. [[Writable]]		  -    specifies whether value of a property can be changed or not
+d. [[Value]]		  -    contains the actual value of a property
+
+
+Default Values
+--------------
+[[Configurable]],[[Enumerable]],[[Writable]] attributes     - true
+
+[NOTE: Only for properties defined directly on an object]	
+
+[[Value]] attrib                                             - undefined.
+
+
+
+Ex:
+let person = {
+    firstName: 'John',
+    lastName: 'Doe'
+};
+
+For the above properties (firstName, lastName) the attributes are set with default values. [ conf.., enum.., writ..  to true]
+and values to John and Doe
+
+
+Object.defineProperty()
+=======================
+To change the attributes of a property, we use the Object.defineProperty() method.
+
+It has 3 arguments:
+1. An object
+2. Property name in that object
+3. property descriptor object that has four properties/attributes: configurable, enumerable, writable, and value.
+
+***NOTE: If you use the Object.defineProperty() method to define a property,
+	 the default values of [[Configurable]], [[Enumerable]], and [[Writable]] are set to false, until specified***
+
+Ex:
+
+'use strict';
+
+let person = {};
+
+Object.defineProperty(person, 'ssn', {
+    configurable: false,
+    value: '012-38-9119'
+});
+delete person.ssn; 
+
+Output:
+TypeError: Cannot delete property 'ssn' of #<Object>
+
+
+***NOTE: Once you set the properties attributes with certain values using Object.defineProperty() method,
+	 you cant change their values again, except [[Writable]], else you will get an error.***
+
+Ex:
+'use strict';
+
+let person = {};
+Object.defineProperty(person, 'ssn', {
+    configurable: false,
+    value: '012-38-9119'
+});
+
+
+Object.defineProperty(person, 'ssn', {
+    configurable: true
+});
+
+Output:
+TypeError: Cannot redefine property: ssn
+
+
+
+2. Accessor properties
+======================
+Similar to data properties, accessor properties also have [[Configurable]] and [[Enumerable]] attributes.
+But the accessor properties have the [[Get]] and [[Set]] attributes instead of [[Value]] and [[Writable]].
+
+When you read data from an accessor property the [[Get]] function is called to return a value. Default value: undefined
+
+If you assign a value to an accessor property, the [[Set]] function is called.
+
+Ex:
+
+let person = {
+    firstName: 'John',
+    lastName: 'Doe'
+}
+
+Object.defineProperty(person, 'fullName', {
+    get: function () {
+        return this.firstName + ' ' + this.lastName;
+    },
+    set: function (value) {
+        let parts = value.split(' ');
+        if (parts.length == 2) {
+            this.firstName = parts[0];
+            this.lastName = parts[1];
+        } else {
+            throw 'Invalid name format';
+        }
+    }
+});
+
+
+
+Object.defineProperties()
+=========================
+
+Using this method you can define multiple properties (i.e their attributes) in a single statement 
+
+Ex:
+
+var product = {};
+
+Object.defineProperties(product, {
+    name: {
+        value: 'Smartphone'
+    },
+    price: {
+        value: 799
+    },
+    tax: {
+        value: 0.1
+    },
+    netPrice: {
+        get: function () {
+            return this.price * (1 + this.tax);
+        }
+    }
+});
+
+console.log('The net price of a ' + product.name + ' is ' + product.netPrice.toFixed(2) + ' USD');
+
+Note: In the above example we defined three data properties: name, price, and tax, and one accessor property: netPrice for the product object.
+
+
+
+Object.getOwnPropertyDescriptor() - ( JavaScript object property descriptor )
+=================================
+
+This method allows you to get the descriptor object of a property. 
+The Object.getOwnPropertyDescriptor() method takes two arguments:
+1. An object
+2. A property of that object
+
+It returns a descriptor object that describes a property (i.e by showing its attributes).
+So this descriptor object has 4 Properties : configurable, enumerable, writable, and value.
+
+Ex:
+
+let person = {
+    firstName: 'John',
+    lastName: 'Doe'
+};
+
+
+let descriptor = Object.getOwnPropertyDescriptor(person, 'firstName');
+
+console.log(descriptor);
+
+Output:
+-------
+{ value: 'John',
+  writable: true,
+  enumerable: true,
+  configurable: true }
+
+***NOTE:***	
+A property can be defined directly on an object or indirectly via the Object.defineProperty() or Object.defineProperties() methods.

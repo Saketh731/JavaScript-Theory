@@ -1,0 +1,172 @@
+Serialization of form data means to create a string of URL encoded name-value pairs of the form data parameters. Each pair is separated by a & character.
+
+While implementing AJAX requests, libraries such as jQuery handle serialization of form data by themselves.
+But when trying to do this with vanilla Javascript (using XHR), it becomes your responsibility to serialize the form data to be sent.
+
+You can form a query string of encoded key/value pairs by appending parameters to a string, but somehow doing that seems like a waste of time.
+
+***The good news is that modern browsers have methods that can serialize form data natively. This happens with the URLSearchParams and FormData objects.
+
+Serialiazing Form Data for a GET Request
+========================================
+For a GET request, you can get a url encoded query string by using the URLSearchParams object.
+search_params.append('post', '12');
+search_params.append('post', '15');
+search_params.append('sort', 'desc');
+search_params.append('contains', 'U A');
+
+Ex:
+// query string
+var query_string = search_params.toString();
+
+// will output "post=12&post=15&sort=desc&contains=U+A"
+console.log(query_string);
+
+// send form data in AJAX request
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'ajax.php');
+xhr.send(query_string);
+
+
+Serialiazing Form Data for a POST Request
+=========================================
+Simple POST request (no files uploaded)
+---------------------------------------
+When no files are being uploaded, the Content-Type header of the POST request is usually application/x-www-form-urlencoded.
+So you can use the URLSearchParams object in this case also 
+
+***POST request with files uploaded
+   --------------------------------
+When files are being uploaded, the Content-Type header of the POST request is multipart/form-data.
+The URLSearchParams object won't work in this case. You will need the FormData object here.
+
+Ex:
+// new FormData object
+var formdata = new FormData();
+
+// textual parameters
+formdata.append('post', '12');
+formdata.append('type', 'normal');
+
+// file to be uploaded
+// comes from a file input
+formdata.append('file', document.querySelector("#file").files[0]);
+
+// send form data in AJAX request
+var xhr = new XMLHttpRequest();
+xhr.open('POST', 'ajax.php');
+xhr.send(formdata);
+
+
+The FormData() constructor 
+==========================
+The FormData() constructor accepts one argument: the form to get the data from.
+
+Ex:
+var form = document.querySelector('form');
+var data = new FormData(form);	
+
+The FormData() constructor returns a FormData object of key/value pairs from your form fields.
+
+NOTE: Form fields must have a name property, or they’ll be skipped. Just an id won’t work.
+
+
+Submitting form data to an API with the FormData() method
+=========================================================
+
+To do this, we’ll pass our event.target, the form that was submitted, into a new FormData() method, and use that as the body property.
+
+Ex:
+document.addEventListener('submit', function (event) {
+
+	event.preventDefault();
+
+	fetch('https://jsonplaceholder.typicode.com/posts', {
+		method: 'POST',
+		body: new FormData(event.target),
+	}).then(function (response) {
+		if (response.ok) {
+			return response.json();
+		}
+		return Promise.reject(response);
+	}).then(function (data) {
+		console.log(data);
+	}).catch(function (error) {
+		console.warn(error);
+	});
+});
+
+
+
+
+Some APIs don’t accept FormData objects
+---------------------------------------
+So you can convert FormData into an object by looping over the FormData and pushing each item into an object.
+
+To loop over FormData, we have to use the keys() method, which returns an iterator. We can then loop over each item using a for...of loop.
+On each loop, we’ll use the get() method to get the value of the key from the FormData object
+
+var serializeForm = function (form) {
+	var obj = {};
+	var formData = new FormData(form);
+	for (var key of formData.keys()) {
+		obj[key] = formData.get(key);
+	}
+	return obj;
+};
+
+
+We’ll pass the event.target into our serializeForm() method, which gets the FormData and convert it into an object for us.
+Then we’ll parse the returned object into a string with JSON.stringify() and post it.
+
+document.addEventListener('submit', function (event) {
+
+	event.preventDefault();
+
+	fetch('https://jsonplaceholder.typicode.com/posts', {
+		method: 'POST',
+		body: JSON.stringify(serializeForm(event.target)),
+		headers: {
+			'Content-type': 'application/json; charset=UTF-8'
+		}
+	}).then(function (response) {
+		if (response.ok) {
+			return response.json();
+		}
+		return Promise.reject(response);
+	}).then(function (data) {
+		console.log(data);
+	}).catch(function (error) {
+		console.warn(error);
+	});
+});
+
+
+A simpler alternative
+---------------------
+Using the Object.fromEntries() method for looping through the objects
+
+Object.fromEntries(new FormData(event.target));
+
+document.addEventListener('submit', function (event) {
+
+	event.preventDefault();
+
+	fetch('https://jsonplaceholder.typicode.com/posts', {
+		method: 'POST',
+		body: JSON.stringify(Object.fromEntries(new FormData(event.target))),
+		headers: {
+			'Content-type': 'application/json; charset=UTF-8'
+		}
+	}).then(function (response) {
+		if (response.ok) {
+			return response.json();
+		}
+		return Promise.reject(response);
+	}).then(function (data) {
+		console.log(data);
+	}).catch(function (error) {
+		console.warn(error);
+	});
+});
+

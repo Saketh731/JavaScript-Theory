@@ -1,0 +1,134 @@
+for (let i = 0; i < arr.length; ++i)
+arr.forEach((v, i) => { /* ... */ })
+for (let i in arr)
+for (const v of arr)
+
+
+for, for/in => give you access to the index in the array, not the actual element
+forEach() , for/of => you get access to the array element itself. NOTE: With forEach() you can access the array index i, with for/of you cannot.
+
+
+1. Non-Numeric Properties
+--------------------------
+JavaScript arrays are objects. That means you can add string properties to your array, not just numbers.
+
+Ex:
+const arr = ['a', 'b', 'c'];
+typeof arr; // 'object'
+// Assign to a non-numeric property
+arr.test = 'bad';
+arr.test; // 'bad'
+arr[1] === arr['1']; // true
+
+****3 of the 4 looping constructs ignore the non-numeric property. 
+    Only for/in will actually print out "bad"
+
+
+
+2. Empty Elements
+-----------------
+JavaScript arrays allow empty elements.
+Ex:
+const arr = ['a',, 'c'];
+arr.length; // 3
+
+Looping constructs treat ['a',, 'c'] differently from ['a', undefined, 'c']
+
+***for/in and for/each skip the empty element, for and for/of do not.
+
+Ex:
+// Prints "a, undefined, c"
+for (let i = 0; i < arr.length; ++i) {
+  console.log(arr[i]);
+}
+
+// Prints "a, c"
+arr.forEach(v => console.log(v));
+
+// Prints "a, c"
+for (let i in arr) {
+  console.log(arr[i]);
+}
+
+// Prints "a, undefined, c"
+for (const v of arr) {
+  console.log(v);
+}
+
+
+NOTE: Holes in JavaScript arrays are generally rare because they are not supported in JSON
+      Ex:
+      JSON.parse('{"arr":["a",,"c"]}')
+      SyntaxError: Unexpected token , in JSON at position 12
+
+
+
+3.Function Context
+------------------
+***Function context is a fancy way of saying what this refers to
+
+***for, for/in, and for/of retain the outside scope's value of this
+
+*****But the forEach() callback will have a different this unless you use an arrow function.
+
+
+
+4.Async/Await and Generators
+----------------------------
+Another edge case with forEach() is that it doesn't quite work right with async/await or generators. 
+If your forEach() callback is synchronous then it doesn't matter, but you can't use await within a forEach() callback:
+
+Ex:
+async function run() {
+  const arr = ['a', 'b', 'c'];
+  arr.forEach(el => {
+    // SyntaxError
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log(el);
+  });
+}
+
+
+
+
+****Conclusions
+===============
+Generally, for/of is the most robust way to iterate over an array in JavaScript
+The major downsides of for/of is that you need to do extra work to access the index (1)
+
+Ex:
+for (const [i, v] of arr.entries()) {
+  console.log(i, v); // Prints "0 a", "1 b", "2 c"
+}
+
+
+
+
+
+forEach vs Map
+==============
+
+Speed Considerations
+--------------------
+forEach() was more than 70% slower than map()
+
+forEach =  1,072,096 operations per second
+map = 3,650,087 opereations per second
+
+
+
+***Which is better?***
+----------------------
+That depends on what you’re trying to accomplish.
+
+forEach() may be preferable when you’re not trying to change the data in your array, 
+but instead want to just do something with it — like saving it to a database or logging it out
+
+And map() might be preferable when changing or altering data. Not only is it faster but it returns a new Array. 
+This means we can do cool things like chaining on other methods ( map(), filter(), reduce(), etc.)
+
+
+
+
+
+

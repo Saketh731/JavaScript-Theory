@@ -1,0 +1,60 @@
+Lodash is a JavaScript library that provides several utility functions for common programming tasks.
+Using this functions in the lodash library makes coding in JavaScript easier and cleaner.
+It is built upon the older underscore.js library.
+
+
+Lodash makes JavaScript easier of working with arrays, numbers, objects, strings, etc.
+Lodash’s modular methods are great for:
+---------------------------------------
+Iterating arrays, objects, & strings
+Manipulating & testing values
+Creating composite functions
+
+
+
+Installation
+============
+Lodash can be installed via NPM:
+--------------------------------
+npm install --save lodash
+
+
+After installation is complete, Lodash can be imported into a JavaScript file as:
+---------------------------------------------------------------------------------
+import _ from "lodash"
+
+
+
+
+Functions
+=========
+Some handy functions included in Lodash are:
+--------------------------------------------	
+
+1. _.concat()
+-------------
+
+Ex:
+let arr = ['dog', 'cat', 'bird', 'hamster']
+let arr = _.concat(arr, 'zebra', 'snake');
+
+2. _.find()
+-----------
+
+Ex:
+let user = _.find(friendlist, {lastName: "Pitt"});
+
+let overFifty = _.find(users, function(user) {
+	return friendlist.age > 50; // return friends who are over 50
+	});
+
+3. _.intersection
+-----------------
+
+Ex: 
+et arr1 = ["football", "cricket", "tennis", "squash"]
+let arr2 = ["cricket", "rugby", "badminton", "tennis"]
+
+let commonElements = _.intersection(arr1, arr2);
+// commonElements-> ["cricket", "tennis"] 
+

@@ -1,0 +1,76 @@
+String extension
+================
+str.startsWith(searchString[, position])
+str.endsWith(searchString[, length])
+str.includes(searchString[, position])
+str.repeat(count)
+
+
+Regex extensions
+================
+new modifier /g,/i
+
+Ex:
+<script>
+   let str = 'JJavascript is Fun to Work , very Fun '
+   let regex = /[A-Z]/g // g stands for global matches
+   let result = str.match(regex);
+   console.log(result); //["J", "J", "F", "W", "F"]
+</script>
+
+
+Number
+======
+Number.isFinite(value)
+Number.isNaN(value)
+Number.parseFloat(string)        	Ex:console.log(Number.parseFloat('10.3meters'));//10.3  console.log(Number.parseFloat('abc10.3xyz'));//NaN
+Number.parseInt(string,[ radix]) 	Ex: console.log(Number.parseInt('10meters'));//10   console.log(Number.parseInt('abc10meters'));//NaN 
+
+
+Math
+====
+Math.sign()	
+Math.trunc()   //function returns the integer part of a number by removing any fractional digits
+
+
+Array
+=====
+copyWithin()  //shallow copies part of an array to another location in the same array   
+		let marks = [10,20,30,40,50,60]
+   		console.log(marks.copyWithin(0,2,4)); //[30, 40, 30, 40, 50, 60]
+   		console.log(marks.copyWithin(2,4));   //[30, 40, 50, 60, 50, 60]
+entries()    //method returns a new Array Iterator object that contains the key/value pairs 
+find()
+fill()	     //let nosArr = [10,20,30,40]  console.log(nosArr.fill(0,1,3)); //[10, 0, 0, 40]
+Array.of()   //creates a new Array instance from a variable number of arguments  Ex: console.log(Array.of(10,20,30)); //[10, 20, 30]
+Array.from() //creates a shallow copy from an array like or iterable object 
+             Ex:    const obj_arr ={
+      			length:2,
+      			0:101,
+      			1:'kannan'
+   		   }
+  		  const arr = Array.from(obj_arr)
+   		  console.log(arr);  //[101, "kannan"]
+		  console.log(Array.from('Javascript')); //["J", "a", "v", "a", "s", "c", "r", "i", "p", "t"]
+
+
+
+
+Object
+======
+Object.is()    //determines whether two values are the same value  Ex: let emp1 = {ename:'Prijin'};  let emp2 = {ename:'Prijin'};  console.log(Object.is(emp1.ename,emp2.ename));
+Object.setPrototypeOf()
+Object.assign()
+Ex:
+<script>
+   //Object.assign()
+   let obj1 = {x:10},
+      obj2 = {y:20},
+      obj3 = {z:30}
+
+   Object.assign(obj1,obj2,obj3)
+   console.log("obj 1",obj1)
+
+</script>  
+Output: obj 1 {x: 10, y: 20, z: 30}
+

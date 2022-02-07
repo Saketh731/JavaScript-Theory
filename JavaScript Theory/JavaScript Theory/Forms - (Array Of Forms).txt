@@ -1,0 +1,92 @@
+nodeList = HTMLFormElement.elements
+
+Ex1:
+var inputs = document.getElementById("my-form").elements;
+var inputByIndex = inputs[0];
+var inputByName = inputs["username"];
+
+Ex2:
+var inputs = document.getElementById("my-form").elements;
+
+// Iterate over the form controls
+for (i = 0; i < inputs.length; i++) {
+  if (inputs[i].nodeName === "INPUT" && inputs[i].type === "text") {
+    // Update text input
+    inputs[i].value.toLocaleUpperCase();
+  }
+
+
+returns an HTMLFormControlsCollection containing all non-image controls in the form
+
+***HTMLFormControlsCollection implements  HTMLCollection***
+
+HTMLCollection 
+==============
+
+Properties 
+----------
+HTMLCollection.length
+
+Methods
+-------
+HTMLCollection.item()       =>   Ex:  document.forms.item(0);             (or)   document.forms[0];
+HTMLCollection.namedItem()  =>   Ex: document.forms.namedItem("myForm");  (or)   document.forms.myForm;
+
+
+
+HTMLFormControlsCollection
+==========================
+
+Inherits properties from HTMLCollection
+
+	
+
+Methods
+-------
+Overrides namedItem() method from HTMLCollection
+
+nodeList = HTMLFormElement.elements
+nodeList.namedItem("value");       //Returns the RadioNodeList or the Element in the collection whose name or id matches the specified name
+
+
+RadioNodeList
+=============
+
+Inherits all properties and methods from parent NodeList
+
+Properties
+----------
+RadioNodeList.value
+
+
+
+NodeList
+========
+
+Properties
+----------
+NodeList.length     //returned when we do getElementsByName()
+
+Methods
+-------
+NodeList.item()
+NodeList.entries()
+NodeList.forEach()	
+NodeList.keys()
+NodeList.values()
+
+
+Ex1:
+const list = document.querySelectorAll('input[type=checkbox]');
+for (let checkbox of list) {
+  checkbox.checked = true;
+}
+
+Ex2:
+const list = document.querySelectorAll('input[type=checkbox]');
+Array.prototype.forEach.call(list, function (checkbox) {
+  checkbox.checked = true;
+});
+
+
+NOTE: Don't use for...in to enumerate the items in NodeLists, since they will also enumerate its length and item properties

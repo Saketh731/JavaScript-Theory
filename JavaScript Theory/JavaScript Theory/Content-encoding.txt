@@ -1,0 +1,25 @@
+Response headers from server has
+-------------------------------
+content-encoding: br(Brotli)/gzip/deflate/compress/identit
+
+
+Request headers at browser has
+------------------------------
+accept-encoding: br,gzip,deflate
+
+***NOTE: When a browser requests a resource, it will use the Accept-Encoding HTTP request header to indicate what compression algorithms it supports
+	 Your server should return the Content-Encoding HTTP response header to indicate what compression algorithm it used.
+
+If there are any uncompressed files those are shown in the Opportunities section of Lighthouse
+Lighthouse calculates the potential saving by compressing the uncompressed files using Gzip and does not show the 
+uncompressed file in opertunity tab if the potential saving is less than 10% of the original size
+
+
+
+Check if a response was compressed in Chrome DevTools 
+-----------------------------------------------------
+You can check it in network tab by clicking the type of file you want to check it for. And the looking in the Headers tab.	
+
+To compare the compressed and de-compressed sizes of a response:
+---------------------------------------------------------------
+You can check that in the network tab by enabling large request rows. In the size section you can see that. Top size is compressed, bottom is de-compressed. 

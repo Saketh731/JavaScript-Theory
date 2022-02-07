@@ -1,0 +1,140 @@
+Objects are said to be iterable if they are having Symbol.iterator (prpoperty) function. (i.e) they must implement the iterator method
+It provides the ability to iterate through the object using for of, iterator
+
+Ex: Arrays, Strings, Sets, Weak Sets, Maps, Weak Maps etc.. are Iterable (i.e) having Symbol.iterator function in its proto  
+
+Generator
+---------
+We cant create an instance to a generator object directly. Instead a Generator instance can be returned from a generator function.
+[i.e] The Generator object is returned by a generator function. 
+
+
+
+
+Iterable Protocol
+-----------------
+In order to be iterable, an object must implement the @@iterator method
+i.e The object must have a property Symbol.iterator.
+
+[Symbol.iterator]   --	A zero-argument function that returns an object, conforming to the iterator protocol.
+
+Whenever an object needs to be iterated, its @@iterator method is called with no arguments, 
+and the returned iterator is used to obtain the values to be iterated.
+
+Note: When this zero-argument function is called, it is invoked as a method on the iterable object.
+      So the this keyword inside the function can be used to access the properties of the iterable object.
+      ***This function can be an ordinary function, or it can be a generator function.
+
+****An object is an iterator when it implements a next() method by following certain semantics
+
+
+You can redefine the iteration behavior by supplying our own @@iterator:
+------------------------------------------------------------------------
+
+// need to construct a String object explicitly to avoid auto-boxing
+let someString = new String('hi');
+
+someString[Symbol.iterator] = function () {
+  return {
+    // this is the iterator object, returning a single element (the string "bye")
+    next: function () {
+      return this._first ? {
+        value: 'bye',
+        done: (this._first = false)
+      } : {
+        done: true
+      }
+    },
+    _first: true
+  };
+};
+
+
+
+You can make your own iterables like this:
+------------------------------------------
+
+let myIterable = {};
+myIterable[Symbol.iterator] = function* () {
+    yield 1;
+    yield 2;
+    yield 3;
+};
+console.log([...myIterable]); // [1, 2, 3]
+
+
+***NOTE: for using spread operator the object must be iterable;
+
+
+
+Simple iterator
+--------------
+
+Ex:
+function makeIterator(array) {
+  let nextIndex = 0
+  return {
+    next: function() {
+      return nextIndex < array.length ? {
+        value: array[nextIndex++],                     // BEST EXAMPLE FOR CLOSURE
+        done: false
+      } : {
+        done: true
+      };
+    }
+  };
+}
+
+let it = makeIterator(['yo', 'ya']);
+
+console.log(it.next().value); // 'yo'
+console.log(it.next().value); // 'ya'
+console.log(it.next().done);  // true
+
+
+
+Generators
+==========
+Generator functions provide a powerful alternative: they allow you to define an iterative algorithm 
+by writing a single function whose execution is not continuous.
+
+When called, generator functions do not initially execute their code. Instead, they return a special type of iterator, called a Generator.
+
+***NOTE: When a value is consumed by calling the generator's next method, the Generator function executes until it encounters the yield keyword.  
+	 The function can be called as many times as desired, and returns a new Generator each time. Each Generator may only be iterated once.
+
+Ex:
+
+function* makeIterator() {
+    yield 1;
+    yield 2;
+}
+
+const it = makeIterator();
+
+for (const itItem of it) {
+    console.log(itItem);
+}
+
+console.log(it[Symbol.iterator]() === it) // true;
+// This example show us generator(iterator) is iterable object
+
+****The next() method also accepts a value, which can be used to modify the internal state of the generator. 
+A value passed to next() will be received by yield .
+
+****Note: A value passed to the first invocation of next() is always ignored
+
+
+Instance methods
+================
+
+Generator.prototype.next()
+//Returns a value yielded by the yield expression.
+
+Generator.prototype.return()
+//Returns the given value and finishes the generator.
+
+Generator.prototype.throw()
+//Throws an error to a generator (also finishes the generator, unless caught from within that generator).
+
+

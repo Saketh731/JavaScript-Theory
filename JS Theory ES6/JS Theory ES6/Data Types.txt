@@ -1,0 +1,86 @@
+6 Primitive Data Types
+----------------------
+undefined : typeof instance === "undefined"
+Boolean : typeof instance === "boolean"
+Number : typeof instance === "number"
+String : typeof instance === "string"
+BigInt : typeof instance === "bigint"
+Symbol : typeof instance === "symbol"
+
+
+2 Structural Types
+-------------------
+Object : typeof instance === "object"     //new Object, new Array, new Map, new Set, new WeakMap, new WeakSet, new Date
+Function : typeof instance === "function"
+
+
+1 Structural Root Primitive
+---------------------------
+null : typeof instance === "object"    // Special primitive type,   if object is not inherited, then null is shown
+
+
+
+
+
+***NOTE:
+========
+Indexed collections: Arrays and typed Arrays
+Keyed collections: Maps, Sets, WeakMaps, WeakSets
+
+Structured data: JSON
+
+
+
+
+
+Map
+===
+The Map object holds key-value pairs and remembers the original insertion order of the keys.
+					---------------------------------
+for...of loop returns an array of [key, value] for each iteration.
+
+
+Instance properties
+-------------------
+Map.prototype.size
+
+
+Instance methods
+----------------
+Map.prototype.clear()
+Map.prototype.delete(key)
+Map.prototype.get(key)
+Map.prototype.has(key)
+Map.prototype.set(key, value)
+
+
+
+
+WeakMap
+=======
+The WeakMap object is a collection of key/value pairs in which the keys are weakly referenced. 
+The keys must be objects and the values can be arbitrary values.
+
+
+
+
+SET
+===
+The Set object lets you store unique values of any type, whether primitive values or object references.
+			-------------------
+Set objects are collections of values. You can iterate through the elements of a set in insertion order. 
+A value in the Set may only occur once; it is unique in the Set's collection.		---------------
+
+Instance methods
+----------------
+Set.prototype.add(value)
+
+
+
+WeakSet
+=======
+The WeakSet object lets you store weakly held objects in a collection.
+
+
+
+

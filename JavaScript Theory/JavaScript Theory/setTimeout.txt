@@ -1,0 +1,36 @@
+These are native and belongs to the window object.  (i.e not in JavaScript engine but in web api level (i.e) at global)
+
+Definition: This setTimeout() method sets a timer which executes a function or specified piece of code once the timer expires.
+
+All these setTimeouts, setIntervals  from call stack goes to the EVENT TABLE. Waits there until the time is fineshed and then goes to the EVENT QUEUE. 
+And waits in the Queue until the stack is empty. And then pushed into the call stack for execution.
+
+It returns an Number (Positive integer) that represents the ID value of the setTimeout, setInterval. This ID is used as parameter for clearTimeout, clearInterval.
+***NOTE: You can use both clearTimeout and clearInterval interchangably, as they both share the same pool of ID's. (i.e Their ID's are stored in the same Pool).
+         But it is not recommended as it creates confusion.  ***However, different objects use separate pools of IDs.
+
+Note: The setInterval() will recursively be calling itself in specified time interval until the clearInterval() is called.
+
+
+NOTE: Also you can pass parameters to setTimeout, setInterval. This does not work in IE9.  ***So you can have the Polyfill
+----					(or)
+      You can you anonymous function instead. This works in all browsers.
+
+Ex:  setInterval(alertFunc, 2000, "First param", "Second param");
+				(or)
+     setInterval(function(){ alertFunc("First param", "Second param"); }, 2000);
+
+
+
+***How setTimeout works****
+   ====================
+
+The JavaScript is single threaded (i.e can carry only sigle task at a time in 1 stack).
+So besides the JavaScript Engine the web browser has other components such as Event Loop, Call Stack, and Web API.
+
+Step-1 : When you call the setTimeout(), the JavaScript engine creates a new function execution context and places it on the call stack.	
+Step-2 : The setTimeout() executes and creates a timer in the Web APIs component of browser i.e in the Thread Pool
+Step-3 : When the timer expires, the callback function that was passed in the setTimeout() is placed to the callback queue.
+Step-4 : The EVENT LOOP monitors both the call stack and the callback queue. 
+         If the call stack is empty it dequeues a callback function from the Queue (callback queue) and pushes that function into the call stack.
+Step-5: Once the callback function is on the stack, it is executed.

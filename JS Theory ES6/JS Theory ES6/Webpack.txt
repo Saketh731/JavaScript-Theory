@@ -1,0 +1,14 @@
+The order in which script tags are declared is not required
+
+The variable can be restricted to that script tag only by using import. Or else if declared in order 
+it will be available in all script tags below it. So anybody can change it in future...Not Secure
+
+
+
+
+Doubts
+======
+npm run build -  this command has to be executed for every minute change in our code.   Isn't this a problem
+We need to definitly use asset.resource loader when using images, fonts etc..,  So always we need to manage the configuration file and keep track of it always, wont this be an extra burden or task. Because if we miss anything or do anything wrong in configuration file it is effecting the whole project
+
+We can even load other files like VSV, TSV, XML files using the csv-loader and xml-loader

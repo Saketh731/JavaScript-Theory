@@ -1,0 +1,80 @@
+Programs often waste time calling functions which gives the same results even if we call 1000000 times.
+
+Memoization can potentially increase performance by caching or storing the results of previous function calls.
+
+****Memoization is actually a specific type of caching. While general caching refer to storing tempary data.
+    Memoizing caching stores the return values of a function.
+****Memoization is best suitable for heavy computational functions
+
+
+Memoized functions uses their arguments as array indexes or object keys to store data (result of function) 
+If the arguments exist in the cache, then the cached value is returned. 
+Otherwise, the function is executed and the newly generated value is added to the cache.
+
+Note: We can even memoize the API calls, but it isn’t necessary because browser automatically caches them for you  (HTTP caching)
+
+Note: Memoizatiion is ideal for frequently called functions (like in recursion (or) server requests)
+
+
+NOTE:
+1. If there are multiple arguments, you can use multi-dimensional objects 
+   (or) all arguments can be combined to a single index [i.e to array]
+2. If object is passed as an argument, If you use toString method to convert it into string and store,
+   then it gives [object Object] result as common for many. So you need to use JSON.stringify() to covert
+   to string and store it as index of object.
+
+
+3. In all the examples functions were explicitly modified. It is also possible to memoize a function without
+   disturbing or modifying the function.
+   This is done by using a utility function   function memoize(func), which takes that function as argument and
+   returns new function.
+   This is useful if we want to turn a function in memoize function later after declaring it.
+   NOTE: We can even make use of Lodash’s _.memoize(func, [resolver])
+   ----
+
+
+Limitations
+===========
+1. For storing old results, memoized functions consume additional memory. Which can be a lot in fibonacci example if passed values like 4000000 in arrays
+2. The biggest limitation of memoization is that it works only for referentially transparent functions
+   [Referentially transparent functions - A function whose output depends only on given inputs and not on other global inputs or variables.
+   Ex: var bar = 1;
+
+	function foo(baz) {
+ 	 return baz + bar;
+	}
+
+	foo(1);
+	bar++;
+	foo(1);
+	
+	The value or result for above function is different even though same argument is passed.
+	So we cant use memoization for these type of functions
+
+
+***NOTE: Cache can remember values as the inner function is having closure over the outer function
+
+
+Local Storage vs Session Storage
+--------------------------------
+
+Session Storage is tempory. Data is stored at browser and deleted once user closes the website
+Local Storage is permanent, like cookies. But cookies has very small storage capacity like 4000 bytes, whereas local storage can have 5MB
+
+(i.e they 1. store protocol like http, https,  2. host or domain,  3. port) 
+
+NOTE: Local storage is stored on the window object of the browser
+
+We cant store them using memoization
+
+But memoization is much faster than using local storage or session storage as memoization is present within the program.
+But its limitation is it can store only the return values of the functions.
+We can expect the same benifits here as from local storage or session storages.
+
+
+localStorage.setItem("key","value");
+localStorage.getItem("key");
+localStorage.removeItem("key";
+localStorage.clear();
+
+

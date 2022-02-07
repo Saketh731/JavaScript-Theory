@@ -1,0 +1,165 @@
+Fetch provides a generic definition of Request and Response objects
+This will allow them to be used wherever they are needed in the future, 
+whether it’s for service workers, Cache API, and other similar things that handle or modify requests and responses
+
+For making a request and fetching a resource, use the WindowOrWorkerGlobalScope.fetch() method
+The fetch() method takes one mandatory argument, the path to the resource you want to fetch. 
+It returns a Promise that resolves to the Response to that request, whether it is successful or not. The promise does not reject on HTTP errors — it only rejects on network errors. 
+
+Once a Response is retrieved, there are a number of methods available to define what the body content is and how it should be handled
+
+
+Parameters
+----------
+resource
+init : An object containing any custom settings that you want to apply to the request. The possible options are:
+	method
+headers
+body
+mode   Ex: cors, no-cors, or same-origin
+
+
+Ex:
+const myImage = document.querySelector('img');
+
+let myRequest = new Request('flowers.jpg');
+
+fetch(myRequest)
+.then(function(response) {
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return response.blob();
+})
+.then(function(response) {
+  let objectURL = URL.createObjectURL(response);
+  myImage.src = objectURL;
+});
+
+
+(or)
+
+const myImage = document.querySelector('img');
+
+let myHeaders = new Headers();
+myHeaders.append('Content-Type', 'image/jpeg');
+
+const myInit = {
+  method: 'GET',
+  headers: myHeaders,
+  mode: 'cors',
+  cache: 'default'
+};
+
+let myRequest = new Request('flowers.jpg');
+
+fetch(myRequest, myInit).then(function(response) {
+  // ... 
+});
+
+
+
+
+body
+Body
+====
+The Body mixin of the Fetch API represents the body of the response/request, allowing you to declare what its content type is and how it should be handled.
+Body is implemented by both Request and Response.
+
+Properties
+----------
+Body.body 
+
+  
+Methods
+-------
+Body.blob()       :  Takes a Response stream and reads it to completion. It returns a promise that resolves with a Blob
+Body.formData()   :  Takes a Response stream and reads it to completion. It returns a promise that resolves with a FormData object.
+Body.json()       :  Takes a Response stream and reads it to completion. It returns a promise that resolves with the result of parsing the body text as JSON.
+Body.text()       :  Takes a Response stream and reads it to completion. It returns a promise that resolves with a USVString (text). The response is always decoded using UTF-8.
+
+
+
+Request Interface of Fetch API
+------------------------------
+The Request interface of the Fetch API represents a resource request.
+You can create a new Request object using the Request() constructor
+
+
+Properties
+----------
+body
+Request.url
+Request.method
+Request.headers 
+Request.mode 
+Request.cache 
+
+
+Methods
+-------	
+Request.clone()     //Creates a copy of the current Request object.
+Body.blob()
+Body.formData()
+Body.json()
+Body.text()
+
+
+Ex:
+const request = new Request('https://example.com', {method: 'POST', body: '{"foo": "bar"}'});
+
+fetch(request)
+  .then(response => {
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      throw new Error('Something went wrong on api server!');
+    }
+  })
+  .then(response => {
+    console.debug(response);
+    // ...
+  }).catch(error => {
+    console.error(error);
+  });
+
+
+
+Response Interface of Fetch API
+-------------------------------
+The Response interface of the Fetch API represents the response to a request.
+
+You can create a new Response object using the Response.Response() constructor, but you are more likely to encounter a Response object being returned as the result of another API operation—for example, 
+a service worker Fetchevent.respondWith, or a simple WindowOrWorkerGlobalScope.fetch().
+
+
+Properties
+----------
+Body.body 
+Response.headers 
+Response.ok      	//A boolean indicating whether the response was successful (status in the range 200–299) or not.
+Response.status
+Response.statusText 
+Response.url
+Response.type    	//The type of the response (e.g., basic, cors)
+
+
+
+Methods
+-------
+Response.clone()
+Response.error()
+Body.blob()
+Body.formData()
+Body.json()
+Body.text()
+
+
+Ex:
+const image = document.querySelector('.my-image');
+fetch('flowers.jpg').then(function(response) {
+  return response.blob();
+}).then(function(blob) {
+  const objectURL = URL.createObjectURL(blob);
+  image.src = objectURL;
+});

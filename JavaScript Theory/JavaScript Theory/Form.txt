@@ -1,0 +1,863 @@
+Overview
+========
+Form Attributes
+---------------
+action 
+target      //_self, _blank, _paren, _top
+method      //get, post, dialog, put, patch, delete
+autocomplete = "on"
+novalidate
+enctype      //<form action="/action_page_binary.asp" method="post" enctype="multipart/form-data">  //only works with post method   //application/x-www-form-urlencoded, multipart/form-data, text/plain
+autocapitalize 
+
+
+
+HTML Form Elements
+==================
+
+<input>
+<label      for="id">
+<select     size="3" /multiple/required/autocomplete/autofocus>
+<option     selected/disabled/label/value>
+<textarea   rows="20"  cols="30"   maxlength/autofocus/placeholder/disabled..>
+<button>      
+<fieldset>
+<legend>
+<datalist>
+<optgroup>
+<meter      id="fuel" min="0" max="100" low="33"  high="66"  optimum="80"  value="50">
+<optgroup   label="Theropods" disabled>  //<optgroup>
+<progress   id="file" max="100" value="70">
+<output     name="x" for="a b">
+
+Ex:
+<form oninput="result.value=parseInt(a.value)+parseInt(b.value)">
+  <input type="range" id="b" name="b" value="50" /> +
+  <input type="number" id="a" name="a" value="10" /> =
+  <output name="result" for="a b">60</output>
+</form>
+ 	
+
+
+HTML Input form* Attributes
+===========================
+form Attribute    //specifies the form (formName) element the input element belongs to
+formaction
+formenctype
+formmethod
+formtarget
+formnovalidate
+
+
+ 
+***NOTE:  disabled - value is not submitted,    readonly - value is submitted
+
+
+
+The HTML <form> element is used to create an HTML form to collect user input.
+The user input is most often sent to a server for processing.
+
+The <form> element is a container for different types of input elements, such as: text fields, checkboxes, radio buttons, submit buttons, etc.
+
+The <input> Element
+-------------------
+      Type					Description
+      ----					-----------
+<input type="text">		Displays a single-line text input field
+<input type="radio">		Displays a radio button (for selecting one of many choices)
+<input type="checkbox">		Displays a checkbox (for selecting zero or more of many choices)
+<input type="submit">		Displays a submit button (for submitting the form)
+<input type="button">		Displays a clickable button
+
+Ex:
+<form>
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname">
+</form>
+
+
+Note: The form itself is not visible. Also note that the default width of an input field is 20 characters.
+
+
+The <label> Element
+-------------------
+
+*****The <label> element also help users who have difficulty clicking on very small regions (such as radio buttons or checkboxes) 
+     - because when the user clicks the text within the <label> element, it toggles the radio button/checkbox.
+
+     The for attribute of the <label> tag should be equal to the id attribute of the <input> element to bind them together.
+
+
+
+The Submit Button
+-----------------
+The <input type="submit"> defines a button for submitting the form data to a form-handler.
+The form-handler is typically a file on the server with a script for processing input data.
+The form-handler is specified in the form's action attribute.
+
+Ex:
+<form action="/action_page.php">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <input type="submit" value="Submit">
+</form>
+
+
+The Name Attribute for <input>
+------------------------------
+Notice that each input field must have a name attribute to be submitted.
+If the name attribute is omitted, the value of the input field will not be sent at all.
+
+
+
+
+HTML Form Attributes
+====================
+
+The Action Attribute
+--------------------
+The action attribute defines the action to be performed when the form is submitted.
+
+Ex:
+<form action="/action_page.php">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <input type="submit" value="Submit">
+</form> `
+
+
+
+The Target Attribute
+--------------------
+The target attribute specifies where to display the response that is received after submitting the form.
+Ex:
+<form action="/action_page.php" target="_blank">
+
+Target can be:
+
+Value			Description
+_blank		The response is displayed in a new window or tab
+_self		The response is displayed in the current window
+_parent		The response is displayed in the parent frame
+_top		The response is displayed in the full body of the window
+framename	The response is displayed in a named iframe
+
+
+The Method Attribute
+--------------------
+The method attribute specifies the HTTP method to be used.
+1. get  (default)
+2. post
+
+Ex: <form action="/action_page.php" method="get">
+
+
+Notes on GET:
+------------
+Appends the form data to the URL, in name/value pairs
+NEVER use GET to send sensitive data! (the submitted form data is visible in the URL!)
+The length of a URL is limited (2048 characters)
+Useful for form submissions where a user wants to bookmark the result
+GET is good for non-secure data, like query strings in Google
+
+Notes on POST:
+-------------
+Appends the form data inside the body of the HTTP request (the submitted form data is not shown in the URL)
+POST has no size limitations, and can be used to send large amounts of data.
+Form submissions with POST cannot be bookmarked
+
+
+Autocomplete Attribute
+----------------------
+<form action="/action_page.php" autocomplete="on">
+
+
+Novalidate Attribute
+--------------------
+The novalidate attribute is a boolean attribute.. It specifies that the form-data (input) should not be validated when submitted.
+
+Ex: <form action="/action_page.php" novalidate>
+
+
+
+
+HTML Form Elements
+==================
+
+<input>
+<label>
+<select>
+<textarea>
+<button>      // Always specify the type attribute for the button element. Different browsers may use different default types for the button element.
+<legend>
+<datalist>
+<output>
+<option>
+<optgroup>
+
+
+
+<select> Element
+================
+The <select> element defines a drop-down list
+
+The <option> elements defines an option that can be selected.
+By default, the first item in the drop-down list is selected.
+To define a pre-selected option, add the selected attribute to the option:
+
+**selected attribute
+  -----------------
+Example:
+ <select id="cars" name="cars">
+    <option value="volvo">Volvo</option>
+    <option value="fiat" selected>Fiat</option>
+    <option value="audi">Audi</option>
+  </select>
+
+size attribute
+--------------
+<select id="cars" name="cars" size="3">  // Remaining will be at scroll
+
+multiple attribute 
+------------------
+<select id="cars" name="cars" size="4" multiple>  // can submit multiple values by holding control
+
+
+
+The <textarea> Element
+======================
+It defines a multi-line input field 
+
+Rows/cols attribute
+-------------------
+Ex:
+<textarea name="message" rows="10" cols="30">
+The cat was playing in the garden.
+</textarea>
+
+Or by using CSS
+---------------
+<textarea name="message" style="width:200px; height:600px;">
+
+
+
+<fieldset> and <legend> Elements
+================================
+
+The <fieldset> element is used to group related data in a form.
+
+The <legend> element defines a caption for the <fieldset> element.
+
+
+Ex:
+<form action="/action_page.php">
+  <fieldset>
+    <legend>Personalia:</legend>
+    <label for="fname">First name:</label><br>
+    <input type="text" id="fname" name="fname" value="John"><br>
+    <label for="lname">Last name:</label><br>
+    <input type="text" id="lname" name="lname" value="Doe"><br><br>
+    <input type="submit" value="Submit">
+  </fieldset>
+
+
+****<datalist> Element
+======================
+The <datalist> element specifies pre-defined options for an <input> element, for the user to select if needed
+	
+***NOTE: The list attribute of the <input> element, must refer to the id attribute of the <datalist> element.
+
+<form action="/action_page.php">
+  <input list="browsers">
+  <datalist id="browsers">
+    <option value="Internet Explorer">
+    <option value="Firefox">
+    <option value="Chrome">
+    <option value="Opera">
+    <option value="Safari">
+  </datalist>
+</form>
+
+
+<output> Element
+================
+The <output> element represents the result of a calculation
+
+Ex:
+<form action="/action_page.php"
+  oninput="x.value=parseInt(a.value)+parseInt(b.value)">
+  0
+  <input type="range"  id="a" name="a" value="50">
+  100 +
+  <input type="number" id="b" name="b" value="50">
+  =
+  <output name="x" for="a b"></output>
+  <br><br>
+  <input type="submit">
+</form>
+
+
+
+HTML Input Types
+================
+NOTE: The default value of the type attribute is "text".
+
+
+<input type="button">        //A push button with no default behavior          //NOTE: for <button></button> types can be: type = "submit/reset/button"        
+<input type="checkbox"   checked/value/indeterminate>
+<input type="color">        // <label for="favcolor">Select your favorite color:</label>    <br>  <input type="color" id="favcolor" name="favcolor">
+<input type="date">
+<input type="datetime-local">
+<input type="email"       multiple/pattern..>
+<input type="file"        multiple/capture/accept=".txt,.doc">    
+<input type="hidden"      // <input type="hidden" id="custId" name="custId" value="3487">
+<input type="image"     (all form* attributes)>      // <input type="image" src="img_submit.gif" alt="Submit" width="48" height="48">  // used as submit button
+<input type="month"     list/step>
+<input type="number"      max/min/step>     // <input type="number" id="quantity" name="quantity" min="1" max="5">
+<input type="password">
+<input type="radio"      checked/value>
+<input type="range"     list/step/max/min>   
+<input type="reset">
+<input type="search">
+<input type="submit"    (all form* attributes)>     //  A button that submits the form.
+<input type="tel">        //  <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+<input type="text">
+<input type="time"     list/maxlength/minlength/placeholder/pattern/readonly/size/spellcheck>
+<input type="url">
+<input type="week">
+
+
+
+
+HTML Input Attributes
+=====================
+
+Attribute					Description
+---------					-----------
+title                   To describe the input field when hovered       //<input type="password" id="pwd" name="pwd" pattern=".{8,}" title="Eight or more characters">
+checked			Specifies that an input field should be pre-selected when the page loads (for type="checkbox" or type="radio")
+disabled		Specifies that an input field should be disabled. And will not be sent to server when submitted.
+max			Specifies the maximum value for an input field   //used in type - number, dates    <input type="date" id="datemax" name="datemax" max="1979-12-31">
+maxlength		Specifies the maximum number of character for an input field    //for maximum characters to be taken
+min			Specifies the minimum value for an input field   //used in type - number, dates    <input type="date" id="datemax" name="datemax" min="1979-12-31">
+pattern			Specifies a regular expression to check the input value against. //The pattern attribute works with the following input types: text, date, search, url, tel, email, and password.****Use the global title attribute to describe the pattern to help the user.
+readonly		Specifies that an input field is read only (cannot be changed)
+required		Specifies that an input field is required (must be filled out)
+size			Specifies the width/size (in characters) of an input field   
+step			Specifies the legal number intervals for an input field  // The step attribute works with the following input types: number, range, date, datetime-local, month, time and week.
+value			Specifies the default value for an input field
+autofocus		input field should automatically get focus when the page loads   //<input type="text" id="fname" name="fname" autofocus>
+height/width		for input fields of type image.  //If height and width are set, the space required for the image is reserved when the page is loaded.
+autocomplete		<form action="/action_page.php" autocomplete="on">  <input type="email" id="email" name="email" autocomplete="off">  </form>
+name
+value
+type
+list			The input list attribute refers to a <datalist> element that contains pre-defined options
+
+Example: 
+<input list="browsers" name="browser" id="browser">
+  <datalist id="browsers">
+    <option value="Edge">
+    <option value="Firefox">
+    <option value="Chrome">
+    <option value="Opera">
+    <option value="Safari">
+  </datalist>
+
+
+
+
+
+HTML Input form* Attributes
+===========================
+
+form Attribute
+--------------
+The input form attribute specifies the form name the <input> element belongs to.
+
+Ex:
+<form action="/action_page.php" id="form1">
+  <label for="fname">First name:</label>
+  <input type="text" id="fname" name="fname"><br><br>
+  <input type="submit" value="Submit">
+</form>
+
+<label for="lname">Last name:</label>
+<input type="text" id="lname" name="lname" form="form1">
+
+
+formaction Attribute
+--------------------
+Note: This attribute overrides the action attribute of the <form> element.
+It works with submit and image.
+The formaction attribute works with the following input types: submit and image.
+
+Ex:
+<form action="/action_page.php">
+  <label for="lname">Last name:</label>
+  <input type="text" id="lname" name="lname"><br><br>
+  <input type="submit" value="Submit">
+  <input type="submit" formaction="/action_page2.php" value="Submit as Admin">
+</form>
+
+
+formenctype Attribute
+---------------------
+Note: This attribute overrides the enctype attribute of the <form> element.
+The formenctype attribute works with the following input types: submit and image.
+
+
+formmethod Attribute
+--------------------
+Note: This attribute overrides the method attribute of the <form> element.
+The formmethod attribute works with the following input types: submit and image.
+
+
+formtarget Attribute
+--------------------
+Note: This attribute overrides the target attribute of the <form> element.
+The formtarget attribute works with the following input types: submit and image.
+
+
+formnovalidate Attribute
+------------------------
+
+Note: This attribute overrides the novalidate attribute of the <form> element.
+The formnovalidate attribute works with the following input types: submit and image.
+
+ <input type="submit" formnovalidate="formnovalidate"
+  value="Submit without validation">
+
+
+
+novalidate Attribute
+--------------------
+The novalidate attribute is a <form> attribute.
+
+Ex: <form action="/action_page.php" novalidate>
+
+
+
+
+
+
+MDN
+===
+:valid and :invalid CSS pseudo-classes to style a <form> element
+
+Attribute	   Type or Types					Description
+---------	   -------------					-----------
+accept			file				Hint for expected file type in file upload controls
+alt			image				alt attribute for the image type. Required for accessibility
+autocomplete		all				Hint for form autofill feature
+autofocus		all				Automatically focus the form control when the page is loaded
+capture			file				Media capture input method in file upload controls
+checked			radio, checkbox			Whether the command or control is checked
+dirname			text, search			Name of form field to use for sending the element's directionality in form submission
+disabled		all				Whether the form control is disabled
+form			all				Associates the control with a form element
+formaction	  image, submit				URL to use for form submission
+formenctype	  image, submit				Form data set encoding type to use for form submission
+formmethod	  image, submit				HTTP method to use for form submission
+formnovalidate	  image, submit				Bypass form control validation for form submission
+formtarget	  image, submit				Browsing context for form submission
+height		       image				Same as height attribute for <img>; vertical dimension
+list		    almost all				Value of the id attribute of the <datalist> of autocomplete options
+max		  numeric types				Maximum value
+maxlength	 password, search, tel, text, url	Maximum length (number of characters) of value
+min	         numeric types				Minimum value
+minlength	 password, search, 			tel, text, url	Minimum length (number of characters) of value
+multiple	 email, file				Boolean. Whether to allow multiple values
+name			all				Name of the form control. Submitted with the form as part of a name/value pair.
+pattern		password, text, tel			Pattern the value must match to be valid
+placeholder	password, search, tel, text, url	Text that appears in the form control when it has no value set
+readonly	   almost all				Boolean. The value is not editable
+required	     almost all				Boolean. A value is required or must be check for the form to be submittable
+size	        email, password, tel, text		Size of the control
+src	 	      image				Same as src attribute for <img>; address of image resource
+step		numeric types				Incremental values that are valid.
+type			all				Type of form control
+value			all				At first, the initial value if specified explicitly in HTML. More generally, the current value of the form control. Submitted with the form as part of a name/value pair.
+width			image				Same as width attribute for <img>
+
+
+
+HTMLFormElement.elements
+------------------------
+When an input element is given a name, that name becomes a property of the owning form element's HTMLFormElement.elements property
+If you have an input whose name is set to guest and another whose name is hat-size, the following code can be used:
+Ex:
+let form = document.querySelector("form");
+let guestName = form.elements.guest;
+let hatSize = form.elements["hat-size"];
+
+When this code has run, guestName will be the HTMLInputElement for the guest field, and hatSize the object for the hat-size field.
+
+
+
+Methods
+=======
+The following methods are provided by the HTMLInputElement interface which represents <input> elements in the DOM
+
+1. checkValidity() 
+   ---------------
+   Immediately runs the validity check on the element, triggering the document to fire the invalid event at the element if the value isn't valid
+
+2. reportValidity()
+   ----------------
+   Returns true if the element's value passes validity checks; otherwise, returns false.
+   Ex:  document.forms['myform'].addEventListener('submit', function() {
+  	document.forms['myform'].reportValidity();
+	}, false);
+
+3. select()
+   -------
+   Selects the entire content of the <input> element
+   Ex:  const input = document.getElementById('text-box');
+  	input.focus();
+  	input.select();
+
+4. setCustomValidity()
+   -------------------
+   Sets a custom message to display if the input element's value isn't valid.
+
+5. setRangeText()
+   -------------
+   Replaces a range of text in an <input> or <textarea> element with a new string.
+   Syntax:
+   element.setRangeText(replacement);
+   element.setRangeText(replacement, start, end [, selectMode]);               // selectMode - select/start/end/preserve
+   
+   Ex:
+   const input = document.getElementById('text-box');
+   input.focus();  
+   input.setRangeText('ALREADY', 14, 17, 'select');
+
+
+6. setSelectionRange()
+   ------------------
+   Selects the specified range of characters within a textual input element.
+   Syntax:
+   element.setSelectionRange(selectionStart, selectionEnd [, selectionDirection]);   // selectionDirection - forward/backward/none
+   
+   Ex:
+   const input = document.getElementById('text-box');  
+   input.focus();
+   input.setSelectionRange(2, 5);
+
+
+
+
+7. stepDown()
+   ---------
+   The HTMLInputElement.stepDown([n]) method decrements the value of a numeric type of  <input> element by the value of the step attribute or up to n multiples of the step attribute if a number is passed as the parameter.  
+   The method, when invoked, decrements the value by (step * n), where n defaults to 1 if not specified 
+   Ex:
+   <input type="number" step="5" id="theNumber" min="0" max="400">
+    
+   //(in click event listner)
+   let input = document.getElementById('theNumber');
+   input.stepDown(val);
+ 
+
+8. stepUp()
+   -------
+
+
+
+
+<input> pseudo-classes
+======================
+Pseudo-class								Description
+------------								-----------
+:enabled			Any currently enabled element that can be activated (selected, clicked on, typed into, etc.) or accept focus and also has a disabled state, in which it can't be activated or accept focus.
+:disabled			Any currently disabled element that has an enabled state, meaing it otherwise could be activated (selected, clicked on, typed into, etc.) or accept focus were it not disabled.
+:read-only			Element not editable by the user
+:read-write			Element that is editable by the user.
+:placeholder-shown		Element that is currently displaying placeholder text, including <input> and <textarea> elements with the placeholder attribute present that has, as of yet, no value.
+:default			Form elements that are the default in a group of related elements. Matches checkbox and radio input types that were checked on page load or render.
+:checked			Matches checkbox and radio input types that are currently checked (and the (<option> in a <select> that is currently selected).
+:indeterminate			checkbox elements whose indeterminate property is set to true by JavaScript, radio elements, when all radio buttons with the same name value in the form are unchecked, and <progress> elements in an indeterminate state
+:valid				Form controls that can have constraint validation applied and are currently valid.
+:invalid			Form controls that have constraint validation applied and are currently not valid. Matches a form control whose value doesn't match the constraints set on it by it's attributes, such as required, pattern , step and max.
+:in-range			A non-empty input whose current value is within the range limits specified by the min and max attributes and the step .
+:out-of-range			A non-empty input whose current value is NOT within the range limits specified by the min and max attributes or does not adher to the step constraint.
+:required			<input>, <select>, or <textarea> element that has the required attribute set on it. Only matches elements that can be required. The attribute included on a non-requirable element will not make for a match.
+:optional			<input>, <select>, or <textarea> element that does NOT have the required attribute set on it. Does not match elements that can't be required.
+:blank				<input> and <textarea> elements that currently have no value.
+:user-invalid			Similar to :invalid, but is activated on blur. Matches invalid input but only after the user interaction, such as by focusing on the control, leaving the control, or attempting to submit the form containing the invalid control.
+
+
+
+
+****NOTE:  Specific attributes and their values can lead to a specific error ValidityState:
+=========
+Ex:
+max		validityState.rangeOverflow
+pattern		validityState.patternMismatch
+required	validityState.valueMissing
+type		validityState.typeMismatch
+
+These are set to true/false (i.e) boolean values
+   
+
+********HTMLInputElement************
+	================
+	
+Input Properties
+---------------
+(all attributes mentioned above)
+validity
+validationMessage
+willValidate
+
+
+
+Methods
+-------
+blur()
+click()
+focus()
+select()
+setSelectionRange()
+setRangeText()
+setCustomValidity()
+checkValidity()
+reportValidity()
+stepDown()
+stepUp()
+
+
+
+Events
+------
+input   -  when changed  //Also available via the oninput event handler property
+invalid - //Also available via the oninvalid event handler property
+search  - for type="search"  //Also available via the onsearch event handler property.
+
+
+
+
+**********HTMLFormElement*************
+          ===============
+
+Properties
+----------
+HTMLFormElement.elements
+HTMLFormElement.length
+HTMLFormElement.name
+HTMLFormElement.method
+HTMLFormElement.target
+HTMLFormElement.action
+HTMLFormElement.encoding or HTMLFormElement.enctype
+HTMLFormElement.autocomplete
+HTMLFormElement.noValidate
+HTMLFormElement.acceptCharset
+
+
+
+Methods
+-------
+checkValidity()     //return - true/false   //fires invalid event if false
+reportValidity()
+requestSubmit()
+reset()
+submit()       //NOTE:  No submit event is raised. In particular, the form's onsubmit event handler is not run.   //<input> with attribute type="submit" will not be submitted in this case
+
+
+
+Events
+======
+formdata
+reset
+submit
+
+
+
+
+
+Obtaining a form element object
+-------------------------------
+1. using CSS selector with querySelector()
+2. document.forms   //returns array of forms
+3. document.forms[index]
+4. document.forms[id]		
+5. document.forms[name]
+
+
+Accessing the form's elements
+-----------------------------
+1. using elements property       // returns array of form elements
+2. using element's name attribute as a key of the form	
+
+
+
+****Issues with Naming Elements
+    ---------------------------
+Ex:
+<input name="id"> will take precedence over <form id="…">. This means that form.id will not refer to the form’s id, but to the element whose name is "id"
+Hence it is recommended to use forms.elements property to get the elements. (By using this you only get the form elements instead of form attributes)
+
+Only the below elements are returned in form.elements:
+
+<button>
+<fieldset>
+<input> (with the exception that any whose type is "image" are omitted for historical reasons)
+<object>
+<output>
+<select>
+<textarea>
+
+
+
+
+
+******Global attributes******
+      =================
+accesskey
+autocapitalize
+class	
+data-*
+dir - ltr/rtl/auto
+draggable
+hidden
+id
+lang
+spellcheck
+style
+title		
+
+
+
+*****HTMLElement*****
+     ===========
+
+
+Properties
+----------
+HTMLElement.accessKey
+HTMLElement.accessKeyLabel
+HTMLElement.contentEditable
+HTMLElement.isContentEditable
+HTMLElement.dir
+HTMLElement.hidden	
+HTMLElement.inert     //events wont work here
+HTMLElement.innerText
+HTMLElement.offsetHeight      // returns the height of an element, including vertical padding and borders, as an integer.
+HTMLElement.offsetParent
+HTMLElement.offsetLeft 
+HTMLElement.style
+HTMLElement.title
+
+
+
+
+Event handlers
+--------------
+HTMLElement.oncopy
+HTMLElement.oncut
+HTMLElement.onpaste 
+
+Ex: elm.oncut = function(){};
+
+
+Events
+------
+invalid    //also via oninvalid property
+beforeinput
+input
+change
+
+
+Methods
+-------
+HTMLOrForeignElement.blur()
+HTMLElement.click()
+HTMLOrForeignElement.focus()
+HTMLElement.forceSpellCheck() 
+
+
+
+
+*****Element******
+     =======
+
+Properties
+----------
+Element.attributes
+Element.classList 
+Element.className
+Element.clientHeight       // representing the inner height of the element.
+Element.clientLeft        // epresenting the width of the left border of the element.
+Element.innerHTML	
+Element.id
+
+
+Methods
+-------
+EventTarget.addEventListener()
+Element.getAttribute()
+Element.getAttributeNames()
+Element.getElementsByTagName()
+Element.getElementsByClassName()
+Element.getElementsByTagName()
+Element.hasAttributes()
+targetElement.insertAdjacentElement(position, element);      //position = 'beforebegin'/'afterbegin'/'beforeend'/'afterend'
+Element.querySelector()
+Element.querySelectorAll()
+ChildNode.remove() 
+Element.removeAttribute()
+Element.setAttribute()
+Element.setAttributeNS('http://www.mozilla.org/ns/specialspace', 'spec:align', 'center')
+	
+
+
+
+******Node*******
+      ====
+
+Properties
+----------
+Node.baseURI
+Node.childNodes
+Node.firstChild
+Node.isConnected
+Node.lastChild
+Node.nextSibling
+Node.previousSibling
+Node.nodeName
+Node.nodeType
+Node.nodeValue
+Node.ownerDocument
+Node.parentNod
+Node.parentElement	
+Node.textContent
+
+
+Methods
+-------
+Node.appendChild(childNode)
+Node.cloneNode()
+Node.contains(othernode)
+Node.compareDocumentPosition()
+Node.getRootNode()
+Node.hasChildNodes()
+Node.insertBefore()
+Node.isEqualNode()
+Node.isSameNode()
+Node.removeChild()
+Node.replaceChild()
+
+
+Ex:
+function removeAllChildren(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild)
+  }
+}

@@ -1,0 +1,424 @@
+1.
+
+Web Server
+=========
+Local Server and Remote Server
+
+Our Code must be uploaded to the server, So that client can access it in his browser.
+i.e web browser interacts in web server after client browses 
+
+Client-Side Environment
+-----------------------
+Scripts run on the client's browser itself (Ex: Javascript)
+Our Source code(scripts...i.e javascript, html, css etc..) is transfered from web server to user's computer
+
+Server-Side Environmenr
+-----------------------
+It is a computer system storing data and programs
+It runs scripts at server-side i.e on web server and sends dynamic html pages to client browser
+ 
+Summary
+-------
+Client-Side Programming is actually the name for the programs which run on the client's browser
+Ex: Java Script (primarily) - even interacts with local storages like cookies, and can send request to web server and retrieve data from it (i.e server-side programs run code and sends data)
+    HTML, CSS 
+Server-Side Programming is actually the name for the programs which run on the Web Server
+EX: Java, Python, C# etc.. (These interact with data base and make the changes required)
+
+NOTE:
+====
+We can even run javascript on the server side (i.e Server-Side Javascript (ssjs)) using the below 2 engines:
+1.Rhino
+2.SpiderMonkey (Aptana-Jaxer)
+
+=>Rhino Engine is implemented in java
+  So using this engine javascript can use many java features. Ex: Connecting with mySQL database using JDBC connections.
+  Using rhino we can directly interact with xml, so rhino can eliminate the DOM parser.
+
+=>SpiderMonkey is implemented in c
+  Using Jaxer (which uses spidermonkey as its interpreter) we can manupulate dom, interact with xml etc..
+
+  By using runat attribute in script tag we can write the code at server side.
+  Ex: <script runat = "server"> </script>    =>  Now the code inside this script is wriiten on the server side.
+  Behind the scenes 'runat' uses ajax calls for the interaction with the server.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2.
+
+Javascript is a scripting language which is run at the client's browser itself.
+These scripting languages run at the client's browser and perform dynamic activities.
+Javascript along with html and css is used to create web apps. (interactive web applications)
+
+When a web browser browses a page the web page gets loaded first(after requesting the web server). Then after the correspoding html file
+gets loaded into the client's browser from web server. The html parser(in browser) parses through the html and creates what is called as DOM (Document Object Model).
+Then after all the files linked to html are loaded into browser (like images, css files etc..). CSS files are loaded from the css parser.
+
+When the browser's encounters a script tag the javascript engine (V8, spidermonkey) loads the javascript files on the spot
+and executes them in the same order they are written only after the html and css files are loaded completely. 
+And script cant access the elements which are loaded after it. (i.e) which are written after script tag.
+NOTE: Thet is reason why script tags are placed at the end of the body tag, so that they do not interrupt the loading of html, css files
+      which slows down the loading of web page. And also to get access to all elements. (while using windows.alert() as the script executes before all html files gets loaded).
+While executing javascript interacts with the DOM to perform changes to web page. 
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+3.
+
+DOM
+===
+
+Document node
+Element node
+#Text Node (Even spaces and new lines are considered)
+#Comment node
+Attribute node
+
+DOM API
+=======
+Node (nodeName, appendChild() etc..)
+|
+Document
+|
+|	      \
+HTMLDocument  XMLDocument
+|
+Element (Attributes, innerHTML, getAttribute() etc..)
+|
+HTMLElement
+|		  \
+HTMLFormElement    HTMLTableElement
+		  (inserRow(), insertColumn())	
+
+All operations on DOM start with document object. That is the main entry point to access DOM. From this we can access any node in the DOM.
+
+Objects Hierarchy in DOM
+========================
+HTMLDocument
+step in, step int, step over, breakpoints
+|
+HTMLhtmlElement
+|
+HTMLBodyElement
+|
+....
+
+Propertien in Node interface for traversal across DOM
+=====================================================
+nodeName  [ex: H1,BODY..], textContent, innerHTML, parentNode, parentElement, childNodes, children, nextSibling, previousSibling, nextElementSibling, firstChild, lastChild, firstElementChild, lastElementChild
+
+getAttribute()
+setAttribute(,) <=====> x.attributeName = "";	
+document.getElementById("").value ==> for getting input tag values.
+
+Css style attributes:
+====================
+document.getElementById("").style.color = "blue";
+(or)
+<button type="button" onclick="document.getElementById('id1').style.color = 'red'">Click Me!</button> 
+
+NOTE:
+===== 
+<h1 onclick="this.innerHTML='Ooops!'">Click on this text!</h1>
+  ( or )
+<h1 onclick="changeText(this)">Click on this text!</h1>
+  ( or )
+<script>
+document.getElementById("myBtn").onclick = displayDate;
+</script>
+
+Methods
+=======
+var para = createElement("p");
+var ch = createTextNode("hey!! all good");
+para.appendChild(ch);
+elm.insertBefore(para, child); ===> [Here child is another created element inserted before para element as child wheras appendChild inserts child at last by default]
+elm.remove() ===> [ex: var elmnt = document.getElementById("p1");  elmnt.remove();]
+parent.removeChild(child);
+parent.replaceChild(par, child);
+
+NOTE:
+=====
+HTMLCollection  is a collection of HTML elements    ===>  It can be accessed by their name, id, or index number      ==>Ex: var x = document.getElementsByTagName("p");
+NodeList        is a collection of document nodes   ===>  It can only be accessed by their index number              ==>Ex: var myNodeList = document.querySelectorAll(".class1");
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Call Stack
+==========
+
+All the function calls are stored in stack. 
+Ex: 
+main()
+|
+console.log(8);
+|
+add()
+|
+sub()
+
+All the variables and objects are stored in heap memory randomly.
+
+Queue stores the messages and callbacks.
+Ex: When a button is clicked..queue stores the message to execute the corresponding function.
+When the stack has space the message is preocessed so that the stack gets the corresponding function into it.
+
+Javascript is single threaded.
+So if the stack is blocked (Ex: with million times loop, late response to a request) it is not possible to execute other part of code.
+So for this javascript uses web api's (i.e its threads) and if a request is send the corresponding function wont be send to stack immediately.
+First it is send to web api for processing and from there sent to msg queue and then after to stack. Meanwhile stack can execute other codes. 
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3.
+
+Variables
+=========
+
+var - function scope [Can be redeclared and updated]
+      var variables are hoisted to the top of their scope. And will be initialized to undefined if not assigned any value
+let - block scope [Can be updated but not redeclared]
+      let variables are also hoisted to the top of their scope, But will not be intitalized with undefined.
+const - block scope [Cannot be redeclared and updated, NOTE: But the attributes inside const object can be updated]
+        const variables are also hoisted to the top of their scope, But will not be intitalized with undefined.
+        NOTE: Will get reference ERROR if tried to access before it is initialized.
+---------------------------------------------------------------------------------------------------
+
+Operators
+=========
+Arithmetic Operators (+,-,*,/ [in decimal upto 15],%,++,--,**)
+Assignment Operators (=,+=,-=,*=,/=,%=,**=,<<=,>>=,>>>=,&=,|=,^=)	
+String Operators (+,+=)
+Comparison Operators (==, ===, !=,!==, <,<,>=,<=, ?)           ===> Used to test for true or false   (Comparision of different types always gives unexpected results) Ex: 2 < "Jhon" => false , 2 < "12" => true
+Logical Operators (&&, ||, !) [only for boolean types]	       ===> Used to test for true or false
+Type Operators (typeof [Returns the type of a variable], instanceof [Returns true if a reference is an instance of an object type])
+Bitwise Operators (&, |, ~, ^, <<, >> ,>>>)             ==> All bitwise operations are performed for 32 bit, JS uses 64 bit to store floating points but before bitwise operations JS converts the number to 32 bit signed and perform bitwise operation and again converted back to 64 bit
+
+---------------------------------------------------------------------------------------------------
+
+DataTypes
+=========
+
+Primitive DataType (6 Primitive Types)
+------------------
+A simple datatype with no additional properties and methods
+Stores primitive values in stack. size is fixed
+
+String (can be treated as objects when used methods or properties at runtime [PRIMITIVE WRAPPER TYPE], or when use new keyword)
+Number (2 types: with decimal, without decimal), (can be treated as objects when used methods or properties at runtime, or when use new keyword)
+Boolean
+null
+undefined
+symbol
+
+Reference (1 Reference Type)
+---------
+Size of reference value is dynamic hence stored in heap
+
+Object [var p = {name:"saketh", age:22};]
+or
+var person = new Object();
+person.firstName = "John";
+person.lastName = "Doe";
+person.age = 50;
+person.eyeColor = "blue";
+(Ex: Array [var a = ["a1", "a2", 12];, Date, Math etc..)
+
+NOTE: typeof undefined        // undefined
+      typeof null             // object
+
+
+The data type of NaN is number
+The data type of an array is object
+The data type of a date is object
+The data type of null is object
+The data type of an undefined variable is undefined *
+The data type of a variable that has not been assigned a value is also undefined *
+
+NOTE: You cannot use typeof to determine if a JavaScript object is an array (or a date).
+====
+
+---------------------------------------------------------------------------------------------------
+
+Type Conversions
+================
+
+In JavaScript there are 5 different data types that can contain values:
+-----------------------------------------------------------------------
+string
+number
+boolean
+object
+function
+There are 6 types of objects:
+----------------------------
+Object
+Date
+Array
+String
+Number
+Boolean
+
+And 2 data types that cannot contain values:
+--------------------------------------------
+null
+undefined
+
+The constructor Property
+------------------------
+Returns constructor function
+"John".constructor                // Returns function String()  {[native code]}
+(3.14).constructor                // Returns function Number()  {[native code]}
+false.constructor                 // Returns function Boolean() {[native code]}
+[1,2,3,4].constructor             // Returns function Array()   {[native code]}
+{name:'John',age:34}.constructor  // Returns function Object()  {[native code]}
+new Date().constructor            // Returns function Date()    {[native code]}
+function () {}.constructor        // Returns function Function(){[native code]}
+
+JavaScript Type Conversion 
+--------------------------
+1.By the use of a JavaScript function
+2.Automatically by JavaScript itself
+
+1.
+String()    Ex:String(100 + 23)
+toString()  Ex:(123).toString()
+Number()    Ex:Number("3.14")    // returns 3.14
+	       Number(" ")       // returns 0
+	       Number("99 88")   // returns NaN
+	       Number(false)     // returns 0
+2.
+5 + null    // returns 5         because null is converted to 0
+"5" + null  // returns "5null"   because null is converted to "null"
+
+JavaScript automatically calls the variable's toString()  when you print an object reference
+
+
+
+---------------------------------------------------------------------------------------------------
+
+Conditional Statements
+======================
+
+if
+else
+else if (if 1st condition fails)
+switch (Common Code Blocks, uses Strict Comparison [===] )
+
+
+---------------------------------------------------------------------------------------------------
+
+Looping Statements
+==================
+
+for
+for/in - (gets the properties of objects, can be used even for iterable objects)
+for/of - (gets the values of iterable objects, this is only for the iterable objects and cant be used for others) Ex: Arrays, Strings, Maps, NodeLists
+while
+do/while
+
+JavaScript Lable
+----------------
+Lable:
+Statement
+
+Ex: l1:{
+	a = 2;
+	var b = a;
+	if(c>b)
+	continue l1;
+        d=2;
+	break l1;
+	d=b;
+       }
+
+---------------------------------------------------------------------------------------------------
+
+Functions
+=========
+
+Invoking a function
+------------------
+When an event occurs (when a user clicks a button)
+When it is invoked (called) from JavaScript code
+Automatically (self invoked)
+
+Accessing a function without () will return the function object instead of the function result
+
+Function Declaration
+-------------------
+A JavaScript function can be defined by function declaration
+Ex: function bar() {
+	return 3;
+    }
+Function is only declared here, It must be invoked for it to be executed
+We just declare it for later use
+
+Function Expression
+-------------------
+JavaScript function can also be defined using an expression, called function expression
+A function expression can be stored in a variable
+Ex: var x = function (a, b) {return a * b};
+
+As the function expression stored in variable, we do not need a function name to invoke it.
+We use the variable here to invoke the function. (i.e) The variable name here is used as the function name
+
+Differences B/W Function Statement/Declaration & Function Expression
+---------------------------------------------------------------------
+
+Ex: Function Expression
+alert(foo()); // ERROR! foo wasn't loaded yet (i.e) function expressions are not loaded before other codes, they are loaded only when the interpreter reaches the line of code
+var foo = function() { return 5; }
+
+Ex:Function Declaration
+alert(foo()); // Alerts 5. Declarations are loaded before any code
+function foo() { return 5; }
+
+Function Declaration are hoisted to the top of other code whereas Function Expression are not hoisted
+
+------------------------------------------------------------------------------------------------------
+
+Scope
+=====
+
+Local Scope
+-----------
+Variables which are defined inside a function has local scope.
+Here objects, functions also act as variables
+So different functions can have variables with same names	
+NOTE: If a value is assigned to a variable then it acts as Global Variable
+      Ex: myFunction();
+	  function myFunction() {
+	  	carName = "Volvo";
+	  }
+Global Scope
+------------
+Variables which are defined outside of any function has Global scope
+
+Lexical Scope
+-------------
+A lexical scope in JavaScript means that a variable defined outside a function can be accessible inside another 
+function defined after the variable declaration. But the opposite is not true; the variables defined inside a 
+function will not be accessible outside that function.
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+delete
+
+in
+
+debugger
+
+
+Math.log(500)
+6.214608098422191
+Math.log(1000000)
+13.815510557964274
+
+
+streem of numbers
+
+
