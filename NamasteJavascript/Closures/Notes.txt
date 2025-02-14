@@ -1,0 +1,15 @@
+Closure is a function that is bind together with its Lexical Environment.
+That is, Function along with its Lexical Scope forms a Closure
+
+If you have below Example
+function a(){
+    let x = 10;
+    return function b(){
+        console.log(b);
+    }
+}
+
+let p = a();
+p(); // 10
+
+10 is still printent even though execution context of 'a' and its variabl is removed from stack. This is because function b retains its lexical/parant scope by storing the variables of its parent under 'Closure' scope
