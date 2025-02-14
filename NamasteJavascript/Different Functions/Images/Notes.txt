@@ -1,0 +1,3 @@
+First Class Functions
+    - The ability to use functions as values (assigning a function to a value), to pass as arguments to another function, to be retruned from another function is known as First Class Functions.
+      This ability is known as First Class Functions in Javascript
