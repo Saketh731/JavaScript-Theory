@@ -13,3 +13,13 @@ let p = a();
 p(); // 10
 
 10 is still printent even though execution context of 'a' and its variabl is removed from stack. This is because function b retains its lexical/parant scope by storing the variables of its parent under 'Closure' scope
+
+
+Disadvantages of Closures
+.........................
+- It accumulates a lot of Memory becauses it caches or holds the parent scope variables in closure without garbage collecting it
+- If not handled properly it can lead to memory leaks and can freeze the browser
+
+Garbage Collector
+    - Javascript is a high level language, so by default Javascript Engines will garbage collect unused variables/functions to free up the momory (unline in low level languages like c, c++, where you need to do it by yourself)
+    

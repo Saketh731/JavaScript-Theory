@@ -1,0 +1,1 @@
+Function within setTimeout forms a closure with parent lexical environment. When ever setTimeout is executed after a certain time then it still hokds the parent scope variables as they are stored in the Closure.
