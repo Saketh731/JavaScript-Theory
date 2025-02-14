@@ -17,3 +17,8 @@ Everything in Javascript executes inside an Execution Context
 
 Call Stack: Maintains the order of execution on all Execution contexts
 So first a Global Execution context is created and pushed in Stack, after the rest other Execution Context are created and pushed. Once each EC execution is done it is removed from stack and finally GEC is removed.
+
+
+Javascript Engine does all this for you (like creating Execution context and allocating memory and executing code)
+
+Chrome's Javascript Script Engine is - V8

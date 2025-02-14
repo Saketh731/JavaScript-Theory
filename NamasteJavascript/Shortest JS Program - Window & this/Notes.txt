@@ -1,0 +1,14 @@
+The shortest Javascript program is just an empty file.
+Even for an empty context you can see a Global context is created. 
+
+Window
+    - Whe you see JS Engine created a Global context for you, it also attaches a global object called 'window' to that context.
+      Whatever you declare in global scope (outside of all functions) it will be attached to winodw object.
+      Ex: var x = 10;
+          function a(){var y = 100}
+          console.log(x); //10
+          console.log(window.x); //10
+    
+this 
+    - Along with window object, another object called this will also be created for each execution context. If it is a function context, then 'this' will be pointed to that function context. 
+      If it is a global context, then 'this' will be pointed to Global context that is 'window' object
