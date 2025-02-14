@@ -1,0 +1,39 @@
+Even let and const are hoisted, that means they are also allocated memory first, before even the code execution starts.
+
+Script scope
+    At the memory created phase they are assigned a value of unidefined just like var, but they are kept in 'Script' scope (under Script) as undefined till some value is assigned to it 
+
+ Global Scope   
+    But the var variables are kept in Global scope under Global
+
+One the let and const are assigned a value (execution reaches that line)  then the undefined is replaced with the value under Script scope
+
+Temporal Dead Zone
+    - From the time it was assigned undefined in Script scope (Hoisting) to the time it is initialized and assigned an actual value is called the Temporal Dead Zone
+
+
+Note: You cannot access let & const variables in window object. You will get undefined as they are not part of Global scope (for browser global scope means window)
+
+You get Reference error if you try to access let/const variable before initialization
+You get Syntax error if you try to redeclare let variable like let a = 1; let a = 10; (For syntax error JS wont even execute single line of code, it just rejects it and throws error)
+But for var you do do redeclaration - var a = 1; var a = 10; 
+
+Const 
+    Const variables are same as let but you cannot reassign a value to them
+
+Const a;
+a=10;
+// You will get Systax error saying you 'Missing initializer in Const declaration'
+**Note: When using const, you need to initialize them at the time of declaration only
+
+Const a =10;
+a=10;
+// You will get Type error saying you 'Assignment to const variable not possible'
+
+You const as much as you can, and then let and var should be least/none
+Declare all variables at top to minimize Temporal Dead Zone to 0
+
+Reference error: When you are trying to access a variable in memory and not able to access (it can be let/const or variable not present)
+Systax error:When errors in syntax (like declaring let twice, not initializing const while declaring...)
+Type error: When reassigning a value to const (Typical type errors) 
+

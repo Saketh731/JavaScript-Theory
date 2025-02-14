@@ -1,0 +1,99 @@
+{
+    var a = 10;
+    cosole.log(a);
+}
+This code is valid and is executed and prints 10;
+
+What is Block?
+...............
+    Block is used at a place where Javascript expects a single statement, but you want to execute a series of statements.
+    Example: if(true) a = 10;
+    here if condition expects a single statement, so you can use a block statement to fulfill you needs
+    if(true){
+        var a = 10;
+        cosole.log(a);
+    }
+
+Block Scope
+............
+
+{
+    var a = 10;
+    let b = 100;
+    const c = 1000;
+    console.log(a); // 10
+    console.log(b); // 100
+    console.log(c); // 1000
+}
+
+console.log(a); // 10
+console.log(b); // Reference error and stops the execution to next line
+console.log(c); // Same Reference error if executed
+
+If you see this in debug mode, you can see 'b' and 'c' under 'Block' scope and a under 'Global' scope. That is why we wont be able to access b and c once we came out of that Block scope.
+
+
+Shadowing
+.........
+
+var a = 20;
+let b = 200;
+const c = 2000;
+
+{
+    var a = 10;
+    let b = 100;
+    const c = 1000;
+    console.log(a); // 10  -  This a shadown the parent a
+    console.log(b); // 100 -  This b shadown the parent b
+    console.log(c); // 1000 -  Same as let 
+}
+
+Shadowing is as the name says shadowing the value of a in parent scope with local scope value
+
+var a = 20;
+let b = 200; - This will be under Script scope (This scope is crated for an exwecution context when variables are hosited)
+const c = 2000; -  Same as let 
+{
+    var a = 10;
+    let b = 100;
+    const c = 1000;
+    console.log(a); // 10
+    console.log(b); // 100 - This will be under Block scope (This scope will be created for variables in a block and will be gone once came out of block scope as Block scope will be removed)
+    console.log(c); // 1000 - Same as let 
+}
+    console.log(a); // 10  - This still will be 10 because both a will store/modify value under Global scope only
+    console.log(b); // 200
+    console.log(c); // 2000 - Same as let 
+
+This works the same way even if it is a function block, like below:
+
+const c = 100
+function x(){
+    const c = 30;
+    console.log(c);
+}
+x(); // 30
+console.log(c); // 100
+
+Illegal Shadowing 
+.................
+let a = 20;
+{
+    let a = 10; // Valid - (You can shadow let using a let but you cannot shadow let using a var)
+    var a = 10; // You cannot do this and this throws a Syntax Errorsaying - 'a' has already been declared
+}
+
+**You can shadow let using a let but you cannot shadow let using a var
+
+
+var a = 20;
+{
+    let a = 10; // This is Valid and will not throw any error - (Because let scope is withing this block but in vice-versa var scope is global and it is like both are at global scope now)
+}
+
+But if it is fucntion then it works as var a is in its own execution context scope as below 
+let a = 20;
+function(){
+    var a = 10;
+}

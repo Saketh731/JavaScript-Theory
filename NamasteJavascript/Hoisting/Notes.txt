@@ -6,3 +6,5 @@ Similarly if you try to access any function declaration  even before its initial
 This happens because in Javascript, even before the actual execution first a Memory (Variable Environment) is created where these undefined and function code is assigned
 
 Note for function expressions if declared with var, it works Similarly lika var variable
+
+Note: Javascript is loosely typed language. That means, once you define var x = 10; You can again reassign it to different type like x = "Hello", which you cannot do in other strongly typed languages

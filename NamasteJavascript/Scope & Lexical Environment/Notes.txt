@@ -1,0 +1,24 @@
+Lexical Environment of a function is its local memory + reference to Lexical Environment of its Parent
+Lexical means - Hierarchy (In sequence)
+
+Example:
+Lets say you have a function b(){} inside function a(){}
+function a(){
+    var x = 10;
+     function b(){
+        console.log(x);
+     }
+}
+
+Note: Each execution context have a reference pointing to its parent scope (parent lexical environment)
+
+So here b is in the lexical scope of a. When printing x, it finds if x is there in local scope and through reference, it will try to find if it is there in the local scope of parent (i.e parent lexical environment). If yes, then prints it, else, moves to next lexical scope.
+This is called scope chaining
+
+Note: Here lexical environment of 'a' is global and lexical environment of global is null
+
+
+***Note: If you debug in console at 'a', you can see under scope tab that there is - local scope + global scope
+         If you debug in console at 'b',  you can see under scope tab that there is - local scope + closure scope (scope of parent 'a') + global scope
+
+         ***This whole chain is called - Scope Chain
