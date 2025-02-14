@@ -1,0 +1,5 @@
+Each Function (Can be main global functions or other function in global context or inner nested function in each function) has its own Execution Context and run in its own Environment
+
+There can be variables with same names in each function. But as they run in individual contexts it first searches for the name withing its context, if not available then searches in global/parent context
+
+Under source tab, under scope section you can see a 'Global' scope for Global context and 'Local' scope for other execution contexts/functions

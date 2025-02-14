@@ -1,0 +1,8 @@
+Hoisting is able to access Javascript variables and function even befre they got initialized, that is, even before the execution line reaches them
+
+If you access any var varibales lets say (var x) even before its initialization, it will print as undefined (If var x itself s not there then it will give error saying 'x Not defined')
+Similarly if you try to access any function declaration  even before its initialization, it will print the entire function
+
+This happens because in Javascript, even before the actual execution first a Memory (Variable Environment) is created where these undefined and function code is assigned
+
+Note for function expressions if declared with var, it works Similarly lika var variable
