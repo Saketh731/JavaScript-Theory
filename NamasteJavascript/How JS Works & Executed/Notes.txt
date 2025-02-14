@@ -1,0 +1,19 @@
+Everything in Javascript executes inside an Execution Context
+
+ Execution Context consists of 2 Phases
+ 1. Memory Creation Phases
+ 2. Code Execution Phase
+
+ That is, each Execution Context has 2 parts
+ 1. Memory (Variable Environment)
+ 2. Code (Thread of Execution)
+
+ So the entire code (precisely function) will be executed twice to create Memory first and Code next.
+
+ Note: Javascript is a "Synchronous Single-Threaded" language and executes code line by line. If waits for each line to finish execution before moving to next line
+
+ In Memory creation phase it will go through the code line by line and allocates memory (undefined for variables and entire function code for function variables)
+ In Code execution phase it will execute line by line and assgins caculated values to variables in memory and when encountereda function call it creates another execution Context
+
+Call Stack: Maintains the order of execution on all Execution contexts
+So first a Global Execution context is created and pushed in Stack, after the rest other Execution Context are created and pushed. Once each EC execution is done it is removed from stack and finally GEC is removed.
