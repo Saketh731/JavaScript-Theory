@@ -1,0 +1,40 @@
+(Watch Images first)
+
+In reality, the only true difference between prototype and __proto__ is that the prototype is a property of a constructor, 
+while the __proto__ is a property of a instance. 
+**prototype is the blueprint/structure that needs to be followed.**
+So what all properties/methods there in prototype, the same properties/methods are shown under __proto__
+
+
+
+******MYConclusions******
+      =============
+How would you inherit properties and methods from Person object in student object ?
+As in Java classes and objects are different and we can extend classes for inheritance.
+
+But in JavaScript there are only objects and no classses.
+So to inherit here we need to have a property (prototype) [whose value is object] with all the methods and properties to be inherited 
+and pass that prototype property (prototype) to the child object. (we store that protoype in __proto__ property which is inside a prototype again)
+To make those methods and properties to be not visible in the instance of that object, we need to create the prototype property inside [__proto__] property.
+
+Ex:
+
+function Person(){
+name: "Saketh";
+age: 22;
+[__proto__] : prototype{
+	   details: function{ this.name+" "+this.age;}
+	   [__proto__]: Object.prototype;
+	}
+} 
+
+function Student(){
+id: 160030708;
+dept: "CSE";
+[__proto__] : prototype{
+	    //[__proto__]: Object.prototype   //gets overided with Person.prototype after using reassigning it using Object.create()
+	    [__proto__]: Person.prototype;  //we will get access to only details function but not name, age properties. To get those we need to use Person.call(this);
+	}
+}
+
+Student.prototype = Object.create(Person.prototype);

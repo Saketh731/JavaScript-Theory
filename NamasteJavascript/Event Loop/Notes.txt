@@ -15,4 +15,3 @@ Microtask Queue for fetch()
       Microtask Queue has more priority then Callback Queue
       When there are many nested fetch calls inside a promise then it will lead to something called as 'Starvation' as the Microtask Queue will be over filled and the Callback Queue have to wait like forever for its chance
       **Only Primised and Mutation observer APIs (When DOM gets mutated new MutationObserver(callback) will get a callback which will be executed) will be stored in the Microtask Queues.
-
