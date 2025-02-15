@@ -1,0 +1,5 @@
+Reduce
+    It will reduce the array of elements to a single value
+    Example:
+    arr.reduce((acc,curr)=>{},0)
+    // the second argument to the reduce is the initial value of the acc (accumulator)
