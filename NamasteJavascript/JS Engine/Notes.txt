@@ -1,0 +1,25 @@
+Javascript Runtime Environment
+    - It is JS Engine + Web Apis, Event loop, Callback Queue,  Microtask Queue .....
+    - If you want to run a javascript, you need Javascript Runtime Environment that gives you everything to run a javascript code to make it a super power
+
+There is different Javascript Runtime Environment for browser and for node.js
+The API will differ, though both have setTimeout, the logic behind it will differ
+
+JS Engine
+    - It is not a machine. It is just a pience of code written in c,c++,...
+    - It converts the JS code to machine code that browser understands
+It has below phases:
+1. Parsing - Where every keywork, text is coverted into token. After that through Syntax parsing an AST tree is generated
+2. Compilation
+3. Execution
+
+*** JIT compilation (Just In Time Compilation)
+    (Note: Intepretaion is execution of code line by line. Compilation is to compile the code into an optimized code. Before JS engines used to do Interpretation but modern browser JS Engines are doing bothe Interpretaion and Compilation, which is called as JIT compilation (Just In Time Compilation))
+Now how it does both Interpretaion and Compilation hand-in-hand is:
+1. Interpretter converts the high level code to byte code and gives it for execution. It is executed using Memory Heap and Callstack
+2. While the code is being interpreted line by line, Interpretter talks to the compiler to optimize the code as much as it can. That is why it is know as 'Just In Time Compilation (JIT Compilation)'
+
+Memory Heap - It is a place where all the variables and functions are assigned memory
+Garbage Collector - It interacts with the Memory Heap for garbage collection. It uses an algorithm called as 'Mark & Sweep' algorithm. This algorithm is widely used even in other garbage collectors out there.
+
+***Google V8 Javascript Engine is the fastest for now
