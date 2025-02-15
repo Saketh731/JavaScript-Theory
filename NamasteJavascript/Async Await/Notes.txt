@@ -1,0 +1,148 @@
+Async Function
+..............
+Async function will always return a promise by default. If you returna promise, it will return that promsie, else if you return a vlue, it  will wrap a promsie around it and return that promise, like below:
+
+const p = new Promise((resolve, reject)=>{
+    resolve("Namaste");
+})
+
+async function getData(){
+ return "Nameste";
+ //((same as))
+ return p;
+}
+const promise = getData(); 
+console.log(promise); // It will print a promise object
+promise.then(res => console.log(res)); // It will print "Namaste"
+
+Async and Await combo
+.....................
+async and await combo is used to handle promises
+
+Lets say we hav below promise
+
+const p = new Promise((resolve, reject)=>{
+    setTimeout(()=>{
+        resolve("Namaste");
+    }, 5000) 
+})
+
+Example of handling promise without using async await
+
+async function getData(){
+ p.then(res => console.log(res)); // Namaste - This will be printed second after  seconds
+ console.log("Hello"); //Hello - This will be printed first as Javascript waits for none
+}
+
+** In above code, while using then&catch to handle Promises, JS Engine will not wait for the promise to be resolved
+
+with async await
+
+async function handlePromise(){
+    const val = await p;
+    console.log(val); // Namaste - This will be printed first after 5 seconds
+    console.log("Hello"); // Hello - This will be printed second after 5 seconds
+}
+
+Note: await keyword can only be used inside an async function
+
+** In above code, while using async await to handle Promises, JS Engine will wait for the promise to be resolved to go to the next step. (It appears to await but dosent wait actually)
+** It appears to await but dosent wait actually - If it really waits then handlePromise will be there in the callstack till the promise gets resolved and the page will be like freezed because no events will get trigged or pushed in callstack as callstack s not empty and having handlePromise() in it. So this dosent happend, handlePromise will go out of the callstack
+** What exactly happens is, while handlePromise is in callstack and when it encounters an await state it will suspend the handlePromise immediately till the promise is resolved (so that other events can be executed and callstack is not blocked). When the promise is resolved, the handlePromise() function again comes back to callstack to continue execution
+
+Example1 for above:
+
+
+const p1 = new Promise((resolve, reject)=>{
+    setTimeout(()=>{
+        resolve("Namaste1");
+    }, 20000) 
+})
+
+const p = new Promise((resolve, reject)=>{
+    setTimeout(()=>{
+        resolve("Namaste2");
+    }, 40000) 
+})
+
+async function handlePromise(){
+    console.log("Hello")    // handlePromise is in callstack
+
+    const val1 = await p1;  // handlePromise is suspended from callstack and prints from this line
+    console.log(val1);      // handlePromise came back to callstack after 20 seconds after promise is resolved
+    console.log("Javascript1");
+
+    const val2 = await p2;  // handlePromise is suspended again from callstack
+    console.log(val2);      // handlePromise came back to callstack after 40 seconds after promise is resolved (for user, including previous 20 seconds plus its own 20 seconds, so its a total of 40 seconds) and prints from this line
+    console.log("Javascript2");
+
+}
+
+Output:
+Hello - Printed immediately
+Namaste1 - Printed after 20 seconds
+Javascript1 - Printed after 20 seconds
+Namaste2 - Printed after 40 seconds
+Javascript2 - Printed after 40 seconds
+
+
+
+
+
+
+
+
+
+Example2 for above:
+
+
+const p1 = new Promise((resolve, reject)=>{
+    setTimeout(()=>{
+        resolve("Namaste1");
+    }, 40000) 
+})
+
+const p = new Promise((resolve, reject)=>{
+    setTimeout(()=>{
+        resolve("Namaste2");
+    }, 20000) 
+})
+
+async function handlePromise(){
+    console.log("Hello")    // handlePromise is in callstack
+
+    const val1 = await p1;  // handlePromise is suspended from callstack 
+    console.log(val1);      // handlePromise came back to callstack after 40 seconds after promise is resolved and prints from this line
+    console.log("Javascript1");
+
+    const val2 = await p2;  // handlePromise is not suspended again as the promise is already resolved as the waiting time of 20 seconds is finished
+    console.log(val2);      // prints this after the first promise resolve only
+    console.log("Javascript2");
+
+}
+
+Output:
+Hello - Printed immediately
+Namaste1 - Printed after 40 seconds
+Javascript1 - Printed after 40 seconds
+Namaste2 - Printed after 40 seconds
+Javascript2 - Printed after 40 seconds
+
+
+
+
+How fetch works?
+................
+fetch returns the Response as a Readable Stream. So you need to convert that Readable Stream to json using response.json(), which is again a promise. So you should await for that promise to be resolved. When this promise is resolved, it will give you the result (json value)
+
+Example: const data = await fetch("https://..");
+         const jsonValue = await data.json();
+         console.log(jsonValue);
+
+
+Error handling
+..............
+Previously you used to handle errors in .catch() block while using .then.
+But in async await, you handle errors using try{} catch{} blocks. Or you can just add a .catch to the async function like this - handlePromise().catch(), which is old way of doing (as handlePromise is an async function, it will always return a promise so you can append a .catch block to it)
+
+Note: If you use async/await, behind the scenes javascript used Promise .then/catch only
