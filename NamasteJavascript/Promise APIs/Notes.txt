@@ -1,0 +1,88 @@
+Promise.all([p1,p2,p3])
+.......................
+(There can be scenarios like you are haivng list of userIds and need to make parallel calls (getUserInfo(userId)) to get user info of each individual user using their userId)
+
+It takes array of promises and returns a promise only. It waits for all of the promises to be setteled and then add their results to an array. If any one promise gets rejected then it throws an error without waiting for other promises. 
+
+Example: Promise.all([p1,p2,p3])
+         Lets say p1 -> 3 seconds, 
+                  p2 -> 1 second,
+                  p3 -> 2 seconds
+
+Case 1: [All promises are resolved]
+        Promise.all([p1,p2,p3]) will resolve in 3 seconds as thats the highest time (as it waits for all the promises to be resolved)
+        Output: [val1,val2,val3]
+Case 2: [Any one promise is rejected (lets say p2 is rejected)]
+        Promise.all([p1,p2,p3]) will be rejected withing 2 seconds as thats the time p2 took to respond. It will not wait for other promises (p1,p3), it wll directly reject Promise.all() by throwing an error
+        Output: [Error]
+        But this is not a good thing to reject without other promises being resolved. For this purpose we have Promise.allSetteled([p1,p2,p3])
+
+
+Promise.allSetteled([p1,p2,p3])
+...............................
+
+It takes array of promises and returns a promise only. It waits for all of the promises to be setteled and then add their results to an array. If any one promise gets rejected then also it still waits for other promises to be settled and then created the result/error array
+
+Example: Promise.all([p1,p2,p3])
+         Lets say p1 -> 3 seconds, 
+                  p2 -> 1 second,
+                  p3 -> 2 seconds
+
+Case 1: [All promises are resolved]
+        Promise.all([p1,p2,p3]) will resolve in 3 seconds as thats the highest time (as it waits for all the promises to be resolved)
+        Output: [val1,val2,val3]
+Case 2: [Any one promise is rejected (lets say p2 is rejected)]
+        Promise.all([p1,p2,p3]) will give output in 3 seconds as it waits for other promises to be resolved even if p2 is rejected.
+        Output: [val1,err2,val3]
+
+
+Promise.race([p1,p2,p3])
+...............................
+
+It takes array of promises and returns a promise only. It will wait until any promise that settles first and than gives the result of that promise as output. That is, it gives the value of the first settled promise
+
+Example: Promise.all([p1,p2,p3])
+         Lets say p1 -> 3 seconds, 
+                  p2 -> 1 second,
+                  p3 -> 2 seconds
+
+Case 1: [All promises are resolved]
+        Promise.all([p1,p2,p3]) will resolve in 1 seconds as p2 resolves first in 1 second
+        Output: [val2]
+Case 2: [p2 is rejected ]
+        Promise.all([p1,p2,p3]) will give output as error in 1 seconds as p2 settled first (rejected)
+        Output: [err2]
+
+
+****Note: You cannot stop other promises from being resolved or rejected as you cannot do that in javascript. Ones they are up they need to settle and you cannot stop them in Javascript
+
+
+Promise.any([p1,p2,p3])
+...............................
+
+It takes array of promises and returns a promise only. It will wait until any promise that 'resolves' first and than gives the result of that promise as output. That is, it waits for the first success. That is, it gives the value of the first resolved promise. If first promise fails then it waits for other to resolve, if that also fails if waits for other and gives its result if resolved. If all fails then it gives AggregateError (that is array of all the errors) 
+
+Example: Promise.all([p1,p2,p3])
+         Lets say p1 -> 3 seconds, 
+                  p2 -> 1 second,
+                  p3 -> 2 seconds
+
+Case 1: [All promises are resolved (p2 got resolved first)]
+        Promise.all([p1,p2,p3]) will resolve in 1 seconds as p2 resolves first in 1 second
+        Output: [val2]
+Case 2: [p2,p3 are rejected ]
+        Promise.all([p1,p2,p3]) will resolve in 3 seconds as p1,p2 rejected and p1 resolved in 3 seconds
+        Output: [val1]
+Case 3: [All p1,p2,p3 are rejected ]
+        Promise.all([p1,p2,p3]) will give AggregateError response in 3 seconds as all p1,p2,p3 fails and it has to wait for the max time of 3 seconds
+        Output: [err1,err2,err3]
+
+
+
+
+
+Add then/catch for all of the above:
+Example: Promise.all([..]).then().catch()
+
+
+(Check Images for implementation examples)
