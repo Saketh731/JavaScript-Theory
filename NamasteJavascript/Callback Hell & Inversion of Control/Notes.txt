@@ -1,0 +1,9 @@
+Issues with Callbacks:
+1. Callback Hell
+2. Inversion of Control
+
+Callback Hell
+    - This happens when have a dependency API calls/async function which needs to be executed in a hierarchy one after the other and if it is nested very deep then it leads to Callback Hell, which is also called as 'Pyramid of Doom' because of it shape.
+
+Inversion of Control
+    - Because we loose the control over the callback and give control to the parent function which is responsible to call the CAllback function after some response it leads to Inversion of Control (like loosing control). The parent function may never call our callback function or it may call more than once.
