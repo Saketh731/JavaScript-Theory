@@ -1,0 +1,58 @@
+Till now we have seen how to Consume a promise when fetch() returns it. Now we will see how to Produce/Create a promise
+
+cost  = ["shoes", "pants", "kurta"]
+const promise = createOrder(cart);
+promise.then((orderId)=>{
+   proceeedToPayment(orderId) 
+})
+
+Now lets see how to create a promise by implementing createOrder()
+
+You create a promise by creating a Promise Constructor which take a callback function as argument (with resolve and reject in it) as below
+
+function createOrder(){
+    const pr = new Promise(function(resolve, reject){
+        if(!validateCard(cart)){
+            const err = new Error("Cart is not Valid");
+            reject(err);
+        }
+        const orderId = "12345" // Get my making API call
+        if(orderId){
+            setTimeout(function (){
+                resolve(orderId);
+            }, 5000)   
+        }
+    })
+    return pr;
+}
+
+This is a simple way to create and return a promise. And you can consume it now as below:
+
+const promise = createOrder();
+promise.then(function (orderId){
+    console.log(orderId); // 12345 will be printed after 5 seconds. Because as soon as the promise object gets the result (after 5 seconds), it will execute the callback function. Till then promise will be in 'pending' state
+})
+
+**Note: Whatever you pass in resolve() / reject() as arguments, you will get it in callback fucntion as a param within .then() function
+
+If the promise is rejected, you will get this error - 'Uncaught (in promise) Error: Cart is not valid' with the message we sent in reject(err) as an argument.
+So it is developer's responsibility to handle this error using catch() block
+
+.catch()
+........
+promise.then(function (orderId){
+    console.log(orderId);
+})
+.catch(function (err){
+    console.log(err.message);
+})
+
+So here when the promise is reject, we can attach a failure callback to the promise which will be called/executed when the Promise is rejected, like how then callback is called promise is resolved and we get data in promise object
+
+
+***If there is a promise chaning, from then then block you can again return a promise or a value
+    - If you return a promise, it will resolve/rejects that promsie and sends the value as an argument to next callback in next .then. 
+    - If you return a value, then by default internally it will create a promise and resolve it by passing the value as arguemnt so that next .then callback function will get this value as parameter
+***You can put any number of .catch blocks in the Promise chain. If you put catch block at last, then if you get any error at one .then all the other .then will be skipped and catch block callback will be called. Whereever you put the catch block in the chain it will handle all the top level .then 's and if any error occurs in top .then 's then it executes catch block callback and next continues the execution of remaining .then
+
+(For more code related to Promise chaining see the Images)

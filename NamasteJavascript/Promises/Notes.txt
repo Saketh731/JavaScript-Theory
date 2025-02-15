@@ -1,0 +1,62 @@
+Promise are nothing but objects.
+Lets say you called an API - createOrders(carts), which takes time to fetch data
+Initially it will return a promise {data: undefined}. after the fetch is completed, it will return {data: [{...}]}
+
+Once the promise object gets the actual data, it will call the callback function inside its 'then' (promise object will have a then method in it). Something like below:
+const promise = createOrders(carts);
+promise.then(function (orderId){
+    proceedWithPayments(orderId);
+})
+// This callback function will be called once the promise receives the actual response from the createOrders() API
+
+Previously we used to do it like below
+
+createorders(cart, function (orderId){
+    proceedWithPayments(orderId);
+})
+
+**This is not the right approach as we as passing the callback the proceedWithPayments function (ganding it over) to another function and loosing the control.
+**But in promises we are atatching the callback function to a promise object. That is why we will have control here. Once our promise object is filled the orderId data, promise will automatically call (responsible to call) the callback function (unlike previously where createorders function is responsible to call our callback functoin). It will callit 100% and called only once, so we have no tension, it is handled by Javascript
+
+The real Promise
+.................
+fetch
+    fetch is a browser web API and it by default return a promise
+    fetch has three 2 main properties
+        1. PromiseState (pending, fulfilled, rejected)
+        2. PromiseResult (undefined, Response)
+
+const promise = createOrders(carts);
+promise.then(function (orderId){
+    proceedWithPayments(orderId);
+})
+
+((or))
+
+This PromiseResult ypu will get it as a param in callback function in then(), like:
+createOrders(carts).then(function (orderId){
+    proceedWithPayments(orderId);
+})
+
+**Note: Promises are special Javascript objects and they are immutable. You cannot change/mutate a promise object
+
+Interview Definition of Promise: A promise is an object representing the eventual completion (from pending to fulfilled) of an async operation
+
+Promise Chaining
+................
+Chaining all .then will grow the code vertically and will not lead to something like callback
+
+Problems solved
+...............
+Inversion of Control
+    - This problem has solved because now you are not giving control to anyone to execute your callback function, but you have the control here
+Callback hell
+    - To resolve this we do promise chaining where our code will not grow horizontally like callback hell but will go vertically
+
+
+Summary of learning
+...................
+First we saw how to do async calls using callback. But there are 2 major problems with callback - 1. Inversion of Control 2. Callback hell.
+We solved it using promise object which we get from fetch() call and this promise object will be eventually filled with result of async operation (in the callback functoin in .then) and we dont need to pass the callback to any function, instead attach it to the promise object (precisely to .then). Whenever we get the data from async operatio, this callback function will be automatically called by promises by injected response data in it.
+
+
