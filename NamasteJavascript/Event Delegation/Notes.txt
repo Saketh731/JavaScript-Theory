@@ -1,0 +1,8 @@
+Event Delegation is a concept of performance optimization which you do using Event Bubbling. As the name says, it is delegating an event to its parent
+When you have a list of cards like list of all clothes related cards in Amazon/Flipkart and when you click on it, it should navigate to a url/:id.
+So instead of applying the event to every card (which will take lot of memory if more cards are there and will lead to performance bottle neck), we can add a single event at Parent card to navigate the clicked child to its url.
+Note: You can get access to the child object id/tagname/value/other attributes by doing event.target.
+
+Limitations of Event Delegation:
+ - It dosent work for all the events. Like there are some event for which it dosent work like - blur,focus,scroll,resize....
+ - If you use e.stopPropagation() at any point then this wont work
