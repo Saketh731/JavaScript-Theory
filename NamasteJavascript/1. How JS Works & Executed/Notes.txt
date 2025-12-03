@@ -22,3 +22,17 @@ So first a Global Execution context is created and pushed in Stack, after the re
 Javascript Engine does all this for you (like creating Execution context and allocating memory and executing code)
 
 Chrome's Javascript Script Engine is - V8
+
+
+
+
+
+
+Crisp Notes
+...........
+Two Phases
+ 1. Memory Creation Phases (Allocates undefined for variables and entire function)
+ 2. Code Execution Phase
+
+Javascript is a "Synchronous Single-Threaded" language - Executes line by line
+Chrome JS engine - V8

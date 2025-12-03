@@ -1,1 +1,17 @@
-Function within setTimeout forms a closure with parent lexical environment. When ever setTimeout is executed after a certain time then it still hokds the parent scope variables as they are stored in the Closure.
+Crisp Notes
+...........
+Function within setTimeout forms a closure with parent lexical environment. When ever setTimeout is executed after a certain time then it still holds the parent scope variables as they are stored in the Closure.
+Constructor Function: 
+  function Counter(){
+    var x = 2;
+    this.increment = ()=>{
+        x++;
+        console.log(x);
+    }
+  }
+  var counterFunc = new Counter();  // **Note: If you do it like "new counter()" you will get Type Error. Always use Capital Letter at first for Constructor Functions
+  counterFunc.increment(); // 3
+
+**[Watch Images for examples]
+
+

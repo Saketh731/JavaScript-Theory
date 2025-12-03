@@ -64,3 +64,7 @@ console.log(bio); //{ 0: "Oluwatobi", 1: "Sofela", runs: "codesweetly.com" }
 const myName = { firstName: "Tobi", lastName: "Sofela" };
 const bio = { ...myName, firstName: "Oluwatobi", website: "codesweetly.com" };
 console.log(bio); //{ firstName: "Oluwatobi", lastName: "Sofela", website: "codesweetly.com" };
+
+
+Rest Operator - It will always be on the left side (or) in the parameter. It combines values into an array/object. Always Taking/Combining.
+Spread Operator - It will always be on the right side (or) in the arguments. It spreads array/object/string into individual values. Always Giving/Spreading

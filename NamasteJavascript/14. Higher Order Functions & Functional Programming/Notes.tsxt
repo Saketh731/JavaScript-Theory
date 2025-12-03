@@ -8,3 +8,5 @@ Higher Order Function
         x();
     }
     // So here x is a callback fucntion and y is a Higher Order Function
+
+[Watch Images]

@@ -59,7 +59,7 @@ const p1 = new Promise((resolve, reject)=>{
     }, 20000) 
 })
 
-const p = new Promise((resolve, reject)=>{
+const p2 = new Promise((resolve, reject)=>{
     setTimeout(()=>{
         resolve("Namaste2");
     }, 40000) 
@@ -102,7 +102,7 @@ const p1 = new Promise((resolve, reject)=>{
     }, 40000) 
 })
 
-const p = new Promise((resolve, reject)=>{
+const p2 = new Promise((resolve, reject)=>{
     setTimeout(()=>{
         resolve("Namaste2");
     }, 20000) 
@@ -146,3 +146,51 @@ Previously you used to handle errors in .catch() block while using .then.
 But in async await, you handle errors using try{} catch{} blocks. Or you can just add a .catch to the async function like this - handlePromise().catch(), which is old way of doing (as handlePromise is an async function, it will always return a promise so you can append a .catch block to it)
 
 Note: If you use async/await, behind the scenes javascript used Promise .then/catch only
+
+
+
+
+
+
+Crisp Notes
+...........
+Async function will always return a promise by default
+const p = new Promise((resolve, reject)=>{
+    resolve("Namaste");
+})
+async function getData(){
+ return "Nameste";
+ //((same as))
+ return p;
+}
+getData().then(res => console.log(res));
+
+
+
+const p = new Promise((resolve, reject)=>{
+    setTimeout(()=>{
+        resolve("Namaste");
+    }, 5000) 
+})
+
+with .then
+    async function getData(){
+    p.then(res => console.log(res)); // Namaste - This will be printed after 5 seconds
+    console.log("Hello"); //Hello - This will be printed first as Javascript waits for none
+    }
+    ** In above code, while using then&catch to handle Promises, JS Engine will not wait for the promise to be resolved
+
+with async await
+    async function handlePromise(){
+        const val = await p;
+        console.log(val); // Namaste - This will be printed first after 5 seconds
+        console.log("Hello"); // Hello - This will be printed second after 5 seconds
+    }
+    Note: await keyword can only be used inside an async function. JS Engine will wait for the promise to be resolved when it is at 'await'.
+    **It only await its execution context - here handlePromise function. This handlePromise function will temporarily moves out of callstack and remaning code will   be executed. Once the promise is resolved/rejected the handlePromise function comesback to the callstack and executes from next line.
+
+**Fetch - fetch returns the Response as a Readable Stream. So you need to convert that Readable Stream to json using response.json(), which is again a promise
+
+Error handling in async/await - try{} catch{} blocks (or) add .catch block to the async function like this - handlePromise().catch() as handlePromise is async function and will always return a promise, so you can append .catch to it. But this is old way of doing.
+
+[See Examples above]

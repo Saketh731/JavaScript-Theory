@@ -1,3 +1,9 @@
+Crisp Notes
+...........
 First Class Functions
     - The ability to use functions as values (assigning a function to a value), to pass as arguments to another function, to be retruned from another function is known as First Class Functions.
       This ability is known as First Class Functions in Javascript
+
+Function Statements - are hoited and you call them even before the execution reaches that line.
+Function Expressions - cannot call before execution reaches that line (initialized) as they are not hoisted and are assigned with undefined
+Anonymous function - function without name. CAnnot be alone like function(){}. It should always be paired up like var x = function(){}; // Function Expression

@@ -6,11 +6,11 @@ Netscape used to do Even Capturing in their browsers
 Microsoft used to do Event Bubbling in their browsers as they feel Bubbling makes more sense
 
 So W3 has come in and set standards for all the browsers to follow. That is, in any event both Event Capturing and Event Bubbling will happen in a cycle.
-That is, first Event Capturing happens and then Event Bubbling happens next. It is the responsibility of the developer to mention which one h wants to utilize by mentioning true/false as a third param in addEventListener()
+That is, first Event Capturing happens and then Event Bubbling happens next. It is the responsibility of the developer to mention which one he wants to utilize by mentioning true/false as a third param in addEventListener()
 
 Example: .addEventListener('click',()=>{}, useCapture) //useCapture is either true/false like - .addEventListener('click',()=>{}, true).
-         // If you dont mention anything as third arguemnt (useCapture), by ddefault it will treat it as false, that is, as Event Bubbling
+         // If you dont mention anything as third arguemnt (useCapture), by default it will treat it as false, that is, as Event Bubbling
 
 e.stopPropagation()
     If you want to stop any event to not propagate down or up (capture/bubble), then set e.stopPropagation() at that specific event callback. 
-    If you set  e.stopPropagation() while the useCapture is false for that event then it stops the Event Eubbling to next parent event, else if useCapture is true then it stop the Event Capturing to next child event
+    If you set  e.stopPropagation() while the useCapture is false for that event then it stops the Event bubbling to next parent event, else if useCapture is true then it stop the Event Capturing to next child event

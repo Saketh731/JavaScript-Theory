@@ -37,3 +37,23 @@ Reference error: When you are trying to access a variable in memory and not able
 Systax error:When errors in syntax (like declaring let twice, not initializing const while declaring...)
 Type error: When reassigning a value to const (Typical type errors) 
 
+
+
+Crisp Notes
+...........
+var, let, const -> all are hoisted (i.e var assigned with undefined)
+var - Global scope | let, const - Script scope
+Temporal Dead Zone - From the time let/const assigned memory to the time it is assigned an actual vaule (execution reaches that line)
+let/const cannot be accessed with 'window' object -> undefined as not part of Global scope
+Reference error - If you try to access let/const variable before initialization (When unable to access a variable IN MEMORY)
+Syntax error - If you redeclare let variable like let a = 1; let a = 10; (But for var this works)
+               If you miss initialization for const. Ex: const x;
+Type error - Const a =10; a=20; You will get this Type error - "Assignment to const variable not possible"
+
+var - function scope [Can be redeclared and updated]
+      var variables are hoisted to the top of their scope. And will be initialized to undefined if not assigned any value
+let - block scope [Can be updated but not redeclared]
+      let variables are also hoisted to the top of their scope, But will not be intitalized with undefined.
+const - block scope [Cannot be redeclared and updated, NOTE: But the attributes inside const object can be updated]
+        const variables are also hoisted to the top of their scope, But will not be intitalized with undefined.
+        NOTE: Will get reference ERROR if tried to access before it is initialized.

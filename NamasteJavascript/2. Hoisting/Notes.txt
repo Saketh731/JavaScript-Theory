@@ -8,3 +8,11 @@ This happens because in Javascript, even before the actual execution first a Mem
 Note for function expressions if declared with var, it works Similarly lika var variable
 
 Note: Javascript is loosely typed language. That means, once you define var x = 10; You can again reassign it to different type like x = "Hello", which you cannot do in other strongly typed languages
+
+
+Crisp Notes
+...........
+Hoisting - is able to access variables even before its initialization
+Memory Creation Phase -> var variables with undefined. Function with entire funtion
+Funtion expression -> Acts like variable so stored with undefined in memory creation phase
+Javascript is loosely typed language. Ex: let x = 3; x = "abc"; 

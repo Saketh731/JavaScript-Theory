@@ -6,9 +6,9 @@ This will call the API when it exceeds the given delay (time) between 2 events. 
 
 Throttling
 ..........
-This will call the API in an interval. Like if we have given a time interval of 3 seconds. The it will make an API call every 3 seconds irrespective of the events getting triggerd
+This will call the API in an interval. Like if we have given a time interval of 3 seconds (But not setIntervel exactly..it uses setTimeout only). It will make an API call every 3 seconds, but the catch is if there is no click (or any) event after 3 seconds it waits for the event and then after the event occurs (even after 100s) then only it will make API call
 
 
 Example1: When searching in a search bar. Debouncing is a better option
-Example2: When resizing a window, if you want to track how many times the window is resized then debouncing is better. But if you want to track the frequency of resizing then throttling is better
-Example3: When clicking a button for a shooting game, throttling is the better option to control the number of firings
+Example2: When resizing a window, if you want to track how many times the window is resized then debouncing is better. But throttling is the better option to do any action after every 500ms
+Example3: When clicking a button for a shooting game, throttling is the better option to do any action after every 500ms

@@ -23,3 +23,17 @@ Disadvantages of Closures
 Garbage Collector
     - Javascript is a high level language, so by default Javascript Engines will garbage collect unused variables/functions to free up the momory (unline in low level languages like c, c++, where you need to do it by yourself)
     
+
+
+Crisp Notes
+...........
+Closure is a function that is bind together with its Lexical Environment. That is, Function along with its Lexical Scope forms a Closure. You can see Closure scope under Source tab.
+function a(){
+    let x = 10;
+    return function b(){
+        console.log(x); // x is stored inside 'Closure' scope
+    }
+}
+let p = a();
+p(); // 10
+Disadvantage - Accumulates a lot of Memory as it holds the parent scope variables. But JS Garbage Collector is clever enough to free up the unused variables

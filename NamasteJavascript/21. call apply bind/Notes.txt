@@ -78,3 +78,31 @@ console.log(boundGetX());
 // expected output: 42
 
 
+
+
+
+
+Crisp Notes
+...........
+call apply and bind are only used with 'function' objects. That means they are only part of function prototype.
+You can change the context of 'this' for a function by calling these methods on that particular function 
+Ex:
+let name1 = {
+  firstName: "James",
+  lastName: "Corbet"
+}
+let printFullName = (hometown, state) => {
+console.log(this.firstName + " " + this.lastName + " from " + hometown ", " + state)
+}
+printFullName.call(name1, "USA", "Texas"); // Leonardo Dcaprio from USA, Texas
+printFullName.apply(name1, ["USA", "Texas"]); // Leonardo Dcaprio from USA, Texas
+let printFullNameCloned = printFullName.bind(name1, "USA", "Texas"); printFullNameCloned(); // Leonardo Dcaprio from USA, Texas
+
+
+Ex1:
+const numbers = [5, 6, 2, 3, 7];
+const max = Math.max.apply(null, numbers);
+Ex2:
+const array = ['a', 'b'];
+const elements = [0, 1, 2];
+array.push.apply(array, elements); // If we we write directly as array.push(elements), we'll get an array inside an array, which is not what we want

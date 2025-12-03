@@ -1,0 +1,154 @@
+this keyword behaves differently in different spaces
+
+
+1. Global spaces
+.................
+// Refers to Global object. Global object can be different in differnt JS runtime environments
+
+console.log(this);  //window (in browser), global (in node.js)
+
+
+2. Inside a function
+....................
+depends on "strict" / "non strict" mode. 
+In strict mode => undefined
+In non strict mode => window
+This is because in non strict mode - "this substitution" happens. Which means if this is undefined/null then it changes it to global context (window)
+
+
+function x(){
+    console.log(this); // undefined in strict mode (or) window in non-strict mode
+}
+
+
+
+3. Depends on how a function is called
+.......................................
+
+"use strict"
+
+function x(){
+    console.log(this);
+}
+
+x(); // undefined
+window.x(); // window
+
+
+Note: 
+const x = ()=> {
+    console.log(this);
+}
+
+x(); // window
+window.x(); // window
+
+
+
+4. Inside Methods
+..................
+If a function is inside an object (assigned to a variable inside an object) then it is called a method.
+this will point to the => object
+
+const student = {
+    name: "Saketh",
+    printName: function(){
+        console.log(this.name);
+    }
+}
+
+student.printName(); // Saketh
+
+
+5. Inside call/apply/bind
+..........................
+
+
+const student = {
+    name: "Saketh",
+    printName: function(){
+        console.log(this.name);
+    }
+}
+
+student.printName(); // Saketh
+
+
+
+const student2 = {
+    name: "Deepika",
+}
+
+student.printName.call(student2); //Deepika
+
+
+
+5. Inside Arrow functions
+..........................
+Arrow functions dosent have their own this. It always points to the => enclosing lexical environment
+
+
+Ex1:
+const student = {
+    name: "Saketh",
+    printThis: () => {
+        console.log(this);
+    }
+}
+
+student.printThis(); // window
+
+
+Ex2:
+const student = {
+    name: "Saketh",
+    printThis: function() {
+        const y = () => {
+            console.log(this);
+        }
+        y();
+    }
+}
+
+student.printThis(); // student object
+
+
+Ex3:
+"use strict";
+
+function x() {
+  const student = {
+    name: "Saketh",
+    printThis: () => {
+      console.log(this);
+    },
+  };
+  student.printThis();
+}
+
+x(); // undefined
+
+
+
+Ex4:
+
+function x() {
+  const student = {
+    name: "Saketh",
+    printThis: () => {
+      console.log(this);
+    },
+  };
+  student.printThis();
+}
+
+x(); // window
+
+
+
+
+6. Inside DOM elements
+......................
+Refers to the corresponding DOM element
+
+<button onclick="alert(this)"></button>  // Prints the button element

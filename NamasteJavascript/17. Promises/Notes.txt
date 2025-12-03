@@ -60,3 +60,46 @@ First we saw how to do async calls using callback. But there are 2 major problem
 We solved it using promise object which we get from fetch() call and this promise object will be eventually filled with result of async operation (in the callback functoin in .then) and we dont need to pass the callback to any function, instead attach it to the promise object (precisely to .then). Whenever we get the data from async operatio, this callback function will be automatically called by promises by injected response data in it.
 
 
+
+
+
+Crisp Notes
+...........
+Promise are nothing but objects => {data: undefined / [{}], then: ()=>{}, catch: ()=>{}}
+Interview Definition => A promise is an object representing the eventual completion (from pending to fulfilled) of an async operation
+When you call fetch api (createOrders(carts)) it return a promise object => {data: undefined}. After getting response =>  {data: [{}]}
+Once you get the data, callback which is sent as an argument to 'then' will be called internally (only once). 'then' is a property of promise object.
+Previously:
+createorders(cart, function (orderId){ // Giving control to createorders to call the callback function & proceedWithPayments
+    proceedWithPayments(orderId);
+})
+Now:
+const promise = createOrders(carts);
+promise.then(function (orderId){ // We have the control over here. It will call it 100% and called only once
+    proceedWithPayments(orderId);
+})
+
+Fetch => fetch has 2 main properties in its returned Promise object. console.log(fetch(..)) => {[[PromiseState]], [[PromiseResult]]}
+        1. PromiseState (pending, fulfilled, rejected)
+        2. PromiseResult (undefined, Response)
+
+fetch().then((response)=>{ // The result is sent as an argument to the callback function of 'then'. (browser does this by default)
+    return response.json(); // This is to deserialize the data
+}).then((result)=>{
+    console.log(result);
+})
+
+Promise Chaining => .then will grow the code vertically and will not lead to something like callback hell
+
+createOrders(carts).then(function (orderId){
+    return proceedWithPayments(orderId);
+}).then(function (paymentInfo){
+    return showOrderSummary(paymentInfo);
+}).then(function (balance){
+    return updateWalletBalance(balance);
+)
+
+Summary of learning
+...................
+First we saw how to do async calls using callback. But there are 2 major problems with callback - 1. Inversion of Control 2. Callback hell.
+We solved it using promise object which we get from fetch() call and this promise object will be eventually filled with result of async operation (in the callback functoin in .then) and we dont need to pass the callback to any function, instead attach it to the promise object (precisely to .then). Whenever we get the data from async operation, this callback function will be automatically called by promises by injected response data in it.

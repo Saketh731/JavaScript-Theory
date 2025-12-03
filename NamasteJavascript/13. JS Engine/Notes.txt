@@ -23,3 +23,16 @@ Memory Heap - It is a place where all the variables and functions are assigned m
 Garbage Collector - It interacts with the Memory Heap for garbage collection. It uses an algorithm called as 'Mark & Sweep' algorithm. This algorithm is widely used even in other garbage collectors out there.
 
 ***Google V8 Javascript Engine is the fastest for now
+
+Crisp Notes
+...........
+Javascript Runtime Environment = JS Engine + (Web Apis, Event loop, Callback Queue, Microtask Queue)
+You need JS Runtime Environment to run JS. JS Runtime Environment is different for browser, nodejs, tv (though all have setTimeout, logic behind it differs)
+JS Engine - Not a machine. It is a piece of code written in c,c++. It converts JS code to machine code that browser understands
+          - Has 3 phases -> 1. Parsing (AST tree created), 2. Compilation, 3. Execution
+Intepretaion - is execution of code line by line. 
+Compilation - is to compile the code into an optimized code
+JIT compilation (Just In Time Compilation) - JS does both Intepretaion and Compilation together.
+Memory Heap - Place where all the variables and functions are assigned memory
+Garbage Collector - It interacts with the Memory Heap for garbage collection. Uses 'Mark & Sweep' algorithm.
+***Google's V8 JS Engine is the fastest for now

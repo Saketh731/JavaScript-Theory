@@ -2,7 +2,7 @@ Promise.all([p1,p2,p3])
 .......................
 (There can be scenarios like you are haivng list of userIds and need to make parallel calls (getUserInfo(userId)) to get user info of each individual user using their userId)
 
-It takes array of promises and returns a promise only. It waits for all of the promises to be setteled and then add their results to an array. If any one promise gets rejected then it throws an error without waiting for other promises. 
+It takes array of promises and returns a promise only. It waits for all of the promises to be resolved and then add their results to an array. If any one promise gets rejected then it throws an error without waiting for other promises. 
 
 Example: Promise.all([p1,p2,p3])
          Lets say p1 -> 3 seconds, 
@@ -13,7 +13,7 @@ Case 1: [All promises are resolved]
         Promise.all([p1,p2,p3]) will resolve in 3 seconds as thats the highest time (as it waits for all the promises to be resolved)
         Output: [val1,val2,val3]
 Case 2: [Any one promise is rejected (lets say p2 is rejected)]
-        Promise.all([p1,p2,p3]) will be rejected withing 2 seconds as thats the time p2 took to respond. It will not wait for other promises (p1,p3), it wll directly reject Promise.all() by throwing an error
+        Promise.all([p1,p2,p3]) will be rejected withing 1 second as thats the time p2 took to respond. It will not wait for other promises (p1,p3), it wll directly reject Promise.all() by throwing an error
         Output: [Error]
         But this is not a good thing to reject without other promises being resolved. For this purpose we have Promise.allSetteled([p1,p2,p3])
 
@@ -86,3 +86,19 @@ Example: Promise.all([..]).then().catch()
 
 
 (Check Images for implementation examples)
+
+
+
+
+Crisp Notes
+...........
+There can be scenarios like you are haivng list of userIds [12,43,23] and need to make parallel API calls to get user info (getUserInfo(23), getUserInfo(43)..)
+You need to have array of promise (fetch calls) for this case
+1. Promise.all([p1,p2,p3]) -> Waits for ALL the promises to be RESOLVED. If any one promise get REJECTED then throws error WITHOUT WAITING for other promises
+2. Promise.allSetteled([p1,p2,p3]) -> Waits for ALL the promises to be SETTELED. Creates result/error array => [resutl1, err2, result3]
+3. Promise.any([p1,p2,p3]) -> It will wait until any promise that RESOLVES first and gives that result => [val1]. i.e If first promise fails then it waits for other
+   to resolve, if that also fails it waits for the next promise to resolve and so on. If all fails then it gives AggregateError (that is array of all the errors)
+4. Promise.race([p1,p2,p3]) -> It will wait until any promise that SETTELES first and returns that value => [val1/err1]. Other promises will be resolved/rejected,
+   you cannot stop that. 
+
+[See Examples above]

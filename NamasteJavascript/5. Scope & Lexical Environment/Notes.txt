@@ -22,3 +22,23 @@ Note: Here lexical environment of 'a' is global and lexical environment of globa
          If you debug in console at 'b',  you can see under scope tab that there is - local scope + closure scope (scope of parent 'a') + global scope
 
          ***This whole chain is called - Scope Chain
+
+
+
+Crisp Notes
+...........
+Lexical Environment of a function = local memory + reference to Lexical Environment of its Parent
+Lexical means - Hierarchy (In sequence)
+Scope Chaining - Ex: var x = 10 => First searches in its own lexical scope then moves to parent lexical scope then moves to next lexical scope and so on
+
+Example:
+Lets say you have a function b(){} inside function a(){}
+function a(){
+    var x = 10;
+     function b(){
+        console.log(x);
+     }
+}
+Note: If you debug in console at 'a', you can see under scope tab that there is - local scope + global scope
+      If you debug in console at 'b',  you can see under scope tab that there is - local scope + closure scope (scope of parent 'a') + global scope
+      ***This whole chain is called - Scope Chain

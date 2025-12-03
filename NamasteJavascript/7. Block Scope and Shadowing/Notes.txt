@@ -97,3 +97,25 @@ let a = 20;
 function(){
     var a = 10;
 }
+
+
+Crisp Notes
+...........
+{
+    var a = 10;
+    cosole.log(a);
+} // This code is valid and is executed and prints 10;
+Block - Block is where JS expects a single statement but you want to write more than 1. Ex: if(true) a = 10;
+
+{
+    var a = 10; // Under Global Scope
+    let b = 100;  // Under Block Scope
+    const c = 1000; // Under Block Scope
+    console.log(a); // 10
+    console.log(b); // 100
+    console.log(c); // 1000
+}
+console.log(b/c); // Reference error and stops the execution to next line
+
+Shadowing - As name says, shadowing the value of 'a' in parent scope with 'a' in local scope
+**You can shadow let using a let but you cannot shadow let using a var

@@ -15,3 +15,12 @@ Microtask Queue for fetch()
       Microtask Queue has more priority then Callback Queue
       When there are many nested fetch calls inside a promise then it will lead to something called as 'Starvation' as the Microtask Queue will be over filled and the Callback Queue have to wait like forever for its chance
       **Only Primised and Mutation observer APIs (When DOM gets mutated new MutationObserver(callback) will get a callback which will be executed) will be stored in the Microtask Queues.
+
+
+Crisp Notes
+...........
+Call Stack - Calls immediately (FILO)
+Web API - Consists of window, document, DOM APIs, console, fetch, setTimeout etc.. Stores the callbacks in Web API till timer finishes or event occurs
+Callback Queue - Web API sends calbacks to Callback Queue and callbacks waits here till callstack is empty
+Event Loop - Sits between Call Stack and Callback Queue. Checks if Call Stack is empty and pushes calbacks from Callback Queue to Call Stack 
+Microtask Queue - More priority then normal Queue. Stores callbacks from promises (fetch) and Mutation observer APIs (When DOM gets mutated new MutationObserver(callback) will get a called)

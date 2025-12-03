@@ -3,3 +3,11 @@ Each Function (Can be main global functions or other function in global context 
 There can be variables with same names in each function. But as they run in individual contexts it first searches for the name withing its context, if not available then searches in global/parent context
 
 Under source tab, under scope section you can see a 'Global' scope for Global context and 'Local' scope for current execution contexts/functions
+
+
+
+Crisp Notes
+...........
+Each function has its own scope (even nested inner function)
+If we console.log(x), it first looks within its function and then its parent and then its parent-parent and so on
+In source Tab, under section you can see 'Global' and 'Local' scope
